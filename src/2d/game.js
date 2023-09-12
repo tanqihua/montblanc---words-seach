@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-
+import { getNormal } from "./utils/index.js";
 export class Game extends Phaser.Scene {
   constructor() {
     super("game");
@@ -50,16 +50,31 @@ export class Game extends Phaser.Scene {
     // point hover
     this.input.on("pointermove", (e) => {
       if (this.dragStartHandler.dragStart) {
+        let n = getNormal(this.dragStartHandler.start_pos, {
+          x: e.x - 20,
+          y: e.y - 20,
+        });
+
         let line = this.pathGraphics;
         line.clear();
 
         line.lineStyle(5, 0xff00ff, 1.0);
         line.beginPath();
         line.moveTo(
-          this.dragStartHandler.start_pos.x,
-          this.dragStartHandler.start_pos.y
+          this.dragStartHandler.start_pos.x - 20,
+          this.dragStartHandler.start_pos.y - 20
         );
-        line.lineTo(e.x, e.y);
+        line.lineTo(e.x + 20, e.y + 20);
+        line.closePath();
+        line.strokePath();
+
+        line.beginPath();
+        line.moveTo(
+          this.dragStartHandler.start_pos.x + 20,
+          this.dragStartHandler.start_pos.y + 20
+        );
+
+        line.lineTo(e.x + 20, e.y + 20);
         line.closePath();
         line.strokePath();
       }
@@ -112,17 +127,17 @@ export class Game extends Phaser.Scene {
   }
 
   update(e) {
-    if (this.dragStartHandler.validLines.length > 0) {
-      for (let i = 0; i < this.dragStartHandler.validLines.length; i++) {
-        const { start, end } = this.dragStartHandler.validLines[i];
-        let line = this.pathGraphics;
-        line.lineStyle(5, 0xff00ff, 1.0);
-        line.beginPath();
-        line.moveTo(start.x, start.y);
-        line.lineTo(end.x, end.y);
-        line.closePath();
-        line.strokePath();
-      }
-    }
+    // if (this.dragStartHandler.validLines.length > 0) {
+    //   for (let i = 0; i < this.dragStartHandler.validLines.length; i++) {
+    //     const { start, end } = this.dragStartHandler.validLines[i];
+    //     let line = this.pathGraphics;
+    //     line.lineStyle(5, 0xff00ff, 1.0);
+    //     line.beginPath();
+    //     line.moveTo(start.x, start.y);
+    //     line.lineTo(end.x, end.y);
+    //     line.closePath();
+    //     line.strokePath();
+    //   }
+    // }
   }
 }
