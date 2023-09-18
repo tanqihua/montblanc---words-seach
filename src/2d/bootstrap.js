@@ -5,7 +5,22 @@ export class Bootstrap extends Phaser.Scene {
     super("bootstrap");
   }
 
-  init() {}
+  init() {
+    let style = {
+      font: "32px Arial",
+      fill: "#ffffff",
+      align: "center",
+    };
+
+    this.text = this.add
+      .text(
+        this.game.config.width / 2,
+        this.game.config.height / 2,
+        "Loading: 0%",
+        style
+      )
+      .setOrigin(0.5);
+  }
 
   preload() {
     // hander load books flip
@@ -18,6 +33,17 @@ export class Bootstrap extends Phaser.Scene {
         path + assetname + current + ".webp"
       );
     }
+
+    // preload directory
+    this.load.text("directory", "/dictionary.txt");
+
+    this.load.on("progress", (value) => {
+      this.text.setText("Loading: " + parseInt(value * 100) + "%");
+    });
+
+    this.load.on("complete", () => {
+      this.scene.start("game");
+    });
   }
 
   create() {
@@ -27,8 +53,6 @@ export class Bootstrap extends Phaser.Scene {
       frameRate: 30,
       repeat: 0,
     });
-
-    this.game.scene.start("game");
   }
 
   update() {}
