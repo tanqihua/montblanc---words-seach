@@ -38,6 +38,8 @@ export class Bootstrap extends Phaser.Scene {
     this.load.text("directory", "/dictionary.txt");
 
     this.load.on("progress", (value) => {
+      // color 0x00ff00
+      this.text.setColor(0x00ff00);
       this.text.setText("Loading: " + parseInt(value * 100) + "%");
     });
 
