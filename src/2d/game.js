@@ -5,13 +5,7 @@ export class Game extends Phaser.Scene {
     super("game");
   }
 
-  init() {
-    let style = {
-      font: "32px Arial",
-      fill: "#ffffff",
-      align: "center",
-    };
-  }
+  init() {}
 
   preload() {}
 
@@ -27,7 +21,6 @@ export class Game extends Phaser.Scene {
     // get dictionary
     this.dictionary = this.cache.text.get("directory");
     this.dictionary = this.dictionary.split("\n");
-
     this.dictionary = this.dictionary.map((item) => {
       return item.trim();
     });
@@ -296,24 +289,23 @@ export class Game extends Phaser.Scene {
               Math.pow(tileX - x, 2) + Math.pow(tileY - y, 2)
             );
 
-            let startDis = Math.sqrt(Math.pow(startX, 2) + Math.pow(startY, 2));
-            let endDis = Math.sqrt(Math.pow(endX, 2) + Math.pow(endY, 2));
-            let tileDis = Math.sqrt(Math.pow(tileX, 2) + Math.pow(tileY, 2));
+            // startToEndDis
+            let startToEndDis = Math.sqrt(
+              Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)
+            );
 
-            if (startDis > endDis) {
-              if (
-                distance < this.mainWidth * 0.03 &&
-                endDis <= tileDis &&
-                startDis >= tileDis
-              ) {
-                tile.setTint(0xff0000);
-              } else {
-                tile.clearTint();
-              }
-            } else if (
+            let startToIntersectDis = Math.sqrt(
+              Math.pow(x - startX, 2) + Math.pow(y - startY, 2)
+            );
+
+            let endToIntersectDis = Math.sqrt(
+              Math.pow(x - endX, 2) + Math.pow(y - endY, 2)
+            );
+
+            if (
               distance < this.mainWidth * 0.03 &&
-              endDis >= tileDis &&
-              startDis <= tileDis
+              startToEndDis > startToIntersectDis - this.boardWidth * 0.02 &&
+              startToEndDis > endToIntersectDis - this.boardWidth * 0.02
             ) {
               tile.setTint(0xff0000);
             } else {
