@@ -10,7 +10,7 @@ export class Game extends Phaser.Scene {
   preload() {}
 
   create() {
-    this.mainWidth = this.game.config.width;
+    this.mainWidth = (this.game.config.height * 0.67 * 11) / 16;
 
     if (window.innerWidth > window.innerHeight) {
       this.mainWidth = this.game.config.width * 0.35;
@@ -32,47 +32,12 @@ export class Game extends Phaser.Scene {
     this.endPoint = false;
     this.pathGraphics = this.add.graphics();
 
-    // 设置画布
-    this.tileLetters = [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "g",
-      "h",
-      "i",
-      "j",
-      "k",
-      "l",
-      "m",
-      "n",
-      "o",
-      "p",
-      "q",
-      "r",
-      "s",
-      "t",
-      "u",
-      "v",
-      "w",
-      "x",
-      "y",
-      "z",
-    ];
-
     // set tile color
     this.tileColors = ["#fff"];
 
     // set tile size
-    this.tileWidth = this.mainWidth * 0.085;
-    this.tileHeight = this.mainWidth * 0.085;
-
-    if (this.mainWidth / this.game.config.height > 6.3 / 11) {
-      this.tileWidth = this.mainWidth * 0.08;
-      this.tileHeight = this.mainWidth * 0.08;
-    }
+    this.tileWidth = this.mainWidth * 0.097;
+    this.tileHeight = this.mainWidth * 0.097;
 
     // this will hold all of our tile sprites
     this.tileGroup = this.add.group();
@@ -107,40 +72,23 @@ export class Game extends Phaser.Scene {
     this.initBook();
     this.initTile();
     this.initDraw();
-    this.initCountDown();
-  }
 
-  // COUNT DOWN
-  initCountDown() {
-    // write font
-    this.startGame = false;
-    this.currentTime = new Date().getTime();
-    this.currentCountDown = 60;
-
-    this.countDown = this.add
-      .text(this.game.config.width * 0.1, this.game.config.height * 0.1, "60", {
-        font: `bold ${this.game.config.height * 0.06}px Arial`,
-        fill: "#000",
-        align: "center",
-      })
-      .setOrigin(0.5);
-
-    this.add
-      .text(
-        this.countDown.x,
-        this.countDown.y - this.countDown.height * 0.75,
-        "TIME",
-        {
-          font: `${this.game.config.height * 0.025}px Arial`,
-          fill: "#000",
-          align: "center",
-        }
-      )
-      .setOrigin(0.5)
-      .setDepth(10);
+    window.startMainGame = () => {
+      this.startMainGame();
+    };
   }
 
   // BOOK
+  startMainGame() {
+    this.bookPlay = true;
+    this.book.anims.play("flip").on("animationcomplete", () => {
+      for (let tiles of this.tileGrid) {
+        for (let tile of tiles) {
+          tile.setAlpha(1);
+        }
+      }
+    });
+  }
 
   initBook() {
     this.book = this.add
@@ -152,21 +100,15 @@ export class Game extends Phaser.Scene {
       .setDepth(-1);
     this.bookPlay = false;
 
-    this.book.setDisplaySize(this.mainWidth, this.mainWidth * 1.77);
+    this.book.setDisplaySize(
+      (this.game.config.height * 0.67 * 16) / 11,
+      (this.game.config.height * 0.67 * 16) / 11
+    );
 
     this.book.setInteractive();
     this.book.on("pointerdown", () => {
-      this.startGame = true;
-      // book played
       if (!this.bookPlay) {
-        this.bookPlay = true;
-        this.book.anims.play("flip").on("animationcomplete", () => {
-          for (let tiles of this.tileGrid) {
-            for (let tile of tiles) {
-              tile.setAlpha(1);
-            }
-          }
-        });
+        this.startMainGame();
       }
     });
   }
@@ -465,7 +407,6 @@ export class Game extends Phaser.Scene {
 
   addTile(x, y) {
     //Choose a random tile to add
-    let tileLetters_length = this.tileLetters.length;
     let tileColor_length = this.tileColors.length;
 
     let tileLetter = this.tileGrid[x][y];
@@ -520,20 +461,6 @@ export class Game extends Phaser.Scene {
   }
 
   update(e) {
-    if (this.startGame) {
-      let now = new Date().getTime();
-      if (now - this.currentTime > 1000) {
-        this.currentTime = now;
-        this.currentCountDown--;
-        if (this.currentCountDown <= 0) {
-          this.startGame = false;
-          this.countDown.setText("60");
-        } else {
-          this.countDown.setText(this.currentCountDown);
-        }
-      }
-    }
-
     if (this.startPoint && this.endPoint) {
       let { x: _startX, y: _startY } = this.startPoint;
       let { x: _endX, y: _endY } = this.endPoint;

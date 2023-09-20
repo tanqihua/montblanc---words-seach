@@ -1,11 +1,10 @@
 import IoPhaser from "./2d/phaser";
 import React, { useEffect, useMemo } from "react";
 import useStore from "./store";
+import Overlay from "./overlay";
 // function setdoc
 function App() {
   const phaserGame = React.useRef(null);
-  const [count, setCount] = React.useState(0);
-
   const firebase = useStore((state) => state.firebase);
 
   void useEffect(() => {
@@ -17,6 +16,7 @@ function App() {
   return (
     <div className="App">
       <IoPhaser ref={phaserGame} />
+      <Overlay ref={phaserGame} />
     </div>
   );
 }

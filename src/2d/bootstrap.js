@@ -71,6 +71,7 @@ export class Bootstrap extends Phaser.Scene {
 
     this.load.on("complete", () => {
       this.scene.start("game");
+      // window.setPreload();
     });
   }
 
