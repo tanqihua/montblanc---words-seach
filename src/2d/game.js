@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-
+import { findClosestValue } from "./utils/index.js";
 export class Game extends Phaser.Scene {
   constructor() {
     super("game");
@@ -16,7 +16,8 @@ export class Game extends Phaser.Scene {
       this.mainWidth = this.game.config.width * 0.35;
     }
 
-    let world = "nihao";
+    // check result
+    this.result = null;
 
     // get dictionary
     this.dictionary = this.cache.text.get("directory");
@@ -24,12 +25,6 @@ export class Game extends Phaser.Scene {
     this.dictionary = this.dictionary.map((item) => {
       return item.trim();
     });
-
-    if (this.dictionary.includes(world)) {
-      console.log("find");
-    } else {
-      console.log("not find");
-    }
 
     // hander draw line
     this.startDraw = false;
@@ -71,25 +66,33 @@ export class Game extends Phaser.Scene {
     this.tileColors = ["#fff"];
 
     // set tile size
-    this.tileWidth = this.mainWidth * 0.12;
-    this.tileHeight = this.mainWidth * 0.12;
+    this.tileWidth = this.mainWidth * 0.085;
+    this.tileHeight = this.mainWidth * 0.085;
+
+    if (this.mainWidth / this.game.config.height > 6.3 / 11) {
+      this.tileWidth = this.mainWidth * 0.08;
+      this.tileHeight = this.mainWidth * 0.08;
+    }
 
     // this will hold all of our tile sprites
     this.tileGroup = this.add.group();
 
     //create whatevet shape you like
     this.tileGrid = [
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
+      ["s", "l", "e", "y", "d", "q", "g", "b", "m"],
+      ["i", "t", "i", "c", "s", "n", "e", "o", "i"],
+      ["b", "w", "o", "t", "i", "m", "n", "o", "c"],
+      ["x", "w", "o", "t", "e", "t", "g", "k", "o"],
+      ["a", "r", "i", "r", "b", "r", "g", "s", "n"],
+      ["y", "r", "t", "l", "d", "o", "a", "x", "i"],
+      ["w", "x", "a", "e", "r", "s", "t", "r", "c"],
+      ["e", "n", "l", "i", "b", "r", "a", "r", "y"],
+      ["c", "n", "e", "w", "y", "o", "r", "k", "m"],
     ];
 
     // broad with and height
-    this.boardWidth = this.tileGrid[0].length * this.tileWidth;
-    this.boardHeight = this.tileGrid.length * this.tileHeight;
+    this.boardWidth = this.tileGrid.length * this.tileHeight;
+    this.boardHeight = this.tileGrid[[0]].length * this.tileWidth;
 
     // encore the tile grid
     this.leftBuffer =
@@ -104,18 +107,56 @@ export class Game extends Phaser.Scene {
     this.initBook();
     this.initTile();
     this.initDraw();
+    this.initCountDown();
   }
 
+  // COUNT DOWN
+  initCountDown() {
+    // write font
+    this.startGame = false;
+    this.currentTime = new Date().getTime();
+    this.currentCountDown = 60;
+
+    this.countDown = this.add
+      .text(this.game.config.width * 0.1, this.game.config.height * 0.1, "60", {
+        font: `bold ${this.game.config.height * 0.06}px Arial`,
+        fill: "#000",
+        align: "center",
+      })
+      .setOrigin(0.5);
+
+    this.add
+      .text(
+        this.countDown.x,
+        this.countDown.y - this.countDown.height * 0.75,
+        "TIME",
+        {
+          font: `${this.game.config.height * 0.025}px Arial`,
+          fill: "#000",
+          align: "center",
+        }
+      )
+      .setOrigin(0.5)
+      .setDepth(10);
+  }
+
+  // BOOK
+
   initBook() {
-    this.book = this.add.sprite(
-      this.game.config.width * 0.5,
-      this.game.config.height * 0.5,
-      "Book_Flip_000"
-    );
+    this.book = this.add
+      .sprite(
+        this.game.config.width * 0.5,
+        this.game.config.height * 0.5,
+        "Book_Flip_000"
+      )
+      .setDepth(-1);
     this.bookPlay = false;
+
     this.book.setDisplaySize(this.mainWidth, this.mainWidth * 1.77);
+
     this.book.setInteractive();
     this.book.on("pointerdown", () => {
+      this.startGame = true;
       // book played
       if (!this.bookPlay) {
         this.bookPlay = true;
@@ -130,6 +171,7 @@ export class Game extends Phaser.Scene {
     });
   }
 
+  // LINE
   initDraw() {
     this.input.on("pointermove", (pointer) => {
       if (this.startDraw && this.startPoint) {
@@ -139,14 +181,279 @@ export class Game extends Phaser.Scene {
       }
     });
 
-    this.input.on("pointerup", (pointer) => {
+    this.input.on("pointerup", () => {
+      // check result
+      if (this.result?.length > 0) {
+        // reverse string
+        let reverse_result = this.result.split("").reverse().join("");
+        if (
+          this.dictionary.includes(this.result) ||
+          this.dictionary.includes(reverse_result)
+        ) {
+          let drawLine = {
+            start: {
+              x: null,
+              y: null,
+            },
+            end: {
+              x: null,
+              y: null,
+            },
+          };
+          console.log(this.result);
+          switch (this.result) {
+            case "montblanc":
+              drawLine.start.x = this.tileGrid[0][8].x;
+              drawLine.start.y = this.tileGrid[0][8].y;
+
+              drawLine.end.x = this.tileGrid[8][0].x;
+              drawLine.end.y = this.tileGrid[8][0].y;
+              break;
+
+            case "books":
+              drawLine.start.x = this.tileGrid[0][7].x;
+              drawLine.start.y = this.tileGrid[0][7].y;
+
+              drawLine.end.x = this.tileGrid[4][7].x;
+              drawLine.end.y = this.tileGrid[4][7].y;
+              break;
+            case "library":
+              drawLine.start.x = this.tileGrid[7][2].x;
+              drawLine.start.y = this.tileGrid[7][2].y;
+
+              drawLine.end.x = this.tileGrid[7][8].x;
+              drawLine.end.y = this.tileGrid[7][8].y;
+              break;
+            case "emertxe":
+              drawLine.start.x = this.tileGrid[7][0].x;
+              drawLine.start.y = this.tileGrid[7][0].y;
+
+              drawLine.end.x = this.tileGrid[1][6].x;
+              drawLine.end.y = this.tileGrid[1][6].y;
+              break;
+            case "iconic":
+              drawLine.start.x = this.tileGrid[1][8].x;
+              drawLine.start.y = this.tileGrid[1][8].y;
+
+              drawLine.end.x = this.tileGrid[6][8].x;
+              drawLine.end.y = this.tileGrid[6][8].y;
+              break;
+            case "words":
+              drawLine.start.x = this.tileGrid[2][1].x;
+              drawLine.start.y = this.tileGrid[2][1].y;
+
+              drawLine.end.x = this.tileGrid[6][5].x;
+              drawLine.end.y = this.tileGrid[6][5].y;
+              break;
+            case "gnitirw":
+              drawLine.start.x = this.tileGrid[6][0].x;
+              drawLine.start.y = this.tileGrid[6][0].y;
+
+              drawLine.end.x = this.tileGrid[0][6].x;
+              drawLine.end.y = this.tileGrid[0][6].y;
+              break;
+            case "story":
+              drawLine.start.x = this.tileGrid[1][4].x;
+              drawLine.start.y = this.tileGrid[1][4].y;
+
+              drawLine.end.x = this.tileGrid[5][0].x;
+              drawLine.end.y = this.tileGrid[5][0].y;
+              break;
+            case "literary":
+              drawLine.start.x = this.tileGrid[0][1].x;
+              drawLine.start.y = this.tileGrid[0][1].y;
+
+              drawLine.end.x = this.tileGrid[7][8].x;
+              drawLine.end.y = this.tileGrid[7][8].y;
+              break;
+            case "newyork":
+              drawLine.start.x = this.tileGrid[8][1].x;
+              drawLine.start.y = this.tileGrid[8][1].y;
+
+              drawLine.end.x = this.tileGrid[8][7].x;
+              drawLine.end.y = this.tileGrid[8][7].y;
+              break;
+          }
+
+          this.drawLine3(
+            drawLine.start.x,
+            drawLine.start.y,
+            drawLine.end.x,
+            drawLine.end.y
+          );
+
+          this.dictionary = this.dictionary.filter((item) => {
+            return item !== this.result && item !== reverse_result;
+          });
+        } else {
+          console.log("not find");
+        }
+      }
+
+      // other
+
       this.pathGraphics.clear();
       this.startDraw = false;
       this.startPoint = false;
       this.endPoint = false;
     });
+
+    this.collectedPoints = [];
   }
 
+  drawLine(startX, startY, endX, endY, clear = true) {
+    let line = this.pathGraphics;
+    line.setDepth(10);
+
+    if (clear) {
+      line.clear();
+    }
+
+    line.lineStyle(this.mainWidth * 0.08, 0xffffff);
+    line.beginPath();
+    line.moveTo(startX, startY);
+    line.lineTo(endX, endY);
+    // line with curve at the end and start of the line
+    line.strokePath();
+    line.setDepth(0);
+    line.closePath();
+
+    // draw half circle at the end of the line\
+    let m = (endY - startY) / (endX - startX);
+    let angle = Math.atan(m);
+
+    // angle to 360
+
+    line.beginPath();
+
+    if (endX < startX) {
+      line.arc(
+        endX,
+        endY,
+        this.mainWidth * 0.04,
+        0 + angle + Math.PI / 2,
+        Math.PI + angle + Math.PI / 2,
+        false
+      );
+    } else {
+      line.arc(
+        endX,
+        endY,
+        this.mainWidth * 0.04,
+        0 + angle - Math.PI / 2,
+        Math.PI + angle - Math.PI / 2,
+        false
+      );
+    }
+
+    line.fillStyle(0xffffff);
+    line.fillPath();
+    line.closePath();
+
+    line.beginPath();
+
+    if (endX > startX) {
+      line.arc(
+        startX,
+        startY,
+        this.mainWidth * 0.04,
+        Math.PI / 2 + angle,
+        (Math.PI * 3) / 2 + angle,
+        false
+      );
+    } else {
+      line.arc(
+        startX,
+        startY,
+        this.mainWidth * 0.04,
+        0 + angle - Math.PI / 2,
+        Math.PI + angle - Math.PI / 2,
+        false
+      );
+    }
+
+    line.fillStyle(0xffffff);
+    line.fillPath();
+    line.closePath();
+  }
+
+  drawLine3(startX, startY, endX, endY, clear = false) {
+    let line = this.add.graphics();
+    line.setDepth(10);
+    if (clear) {
+      line.clear();
+    }
+
+    line.lineStyle(this.mainWidth * 0.08, 0x008080, 0.4);
+    line.beginPath();
+    line.moveTo(startX, startY);
+    line.lineTo(endX, endY);
+    // line with curve at the end and start of the line
+    line.strokePath();
+    line.setDepth(0);
+    line.closePath();
+
+    // draw half circle at the end of the line\
+    let m = (endY - startY) / (endX - startX);
+    let angle = Math.atan(m);
+
+    // angle to 360
+
+    line.beginPath();
+
+    if (endX < startX) {
+      line.arc(
+        endX,
+        endY,
+        this.mainWidth * 0.04,
+        0 + angle + Math.PI / 2,
+        Math.PI + angle + Math.PI / 2,
+        false
+      );
+    } else {
+      line.arc(
+        endX,
+        endY,
+        this.mainWidth * 0.04,
+        0 + angle - Math.PI / 2,
+        Math.PI + angle - Math.PI / 2,
+        false
+      );
+    }
+
+    line.fillStyle(0x008080, 0.4);
+    line.fillPath();
+    line.closePath();
+
+    line.beginPath();
+
+    if (endX >= startX) {
+      line.arc(
+        startX,
+        startY,
+        this.mainWidth * 0.04,
+        Math.PI / 2 + angle,
+        (Math.PI * 3) / 2 + angle,
+        false
+      );
+      console.log("startX", startX);
+    } else {
+      line.arc(
+        startX,
+        startY,
+        this.mainWidth * 0.04,
+        0 + angle - Math.PI / 2,
+        Math.PI + angle - Math.PI / 2,
+        false
+      );
+    }
+
+    line.fillStyle(0x008080, 0.4);
+    line.fillPath();
+    line.closePath();
+  }
+
+  // TILE
   initTile() {
     for (let i = 0; i < this.tileGrid.length; i++) {
       for (let j = 0; j < this.tileGrid[i].length; j++) {
@@ -161,8 +468,7 @@ export class Game extends Phaser.Scene {
     let tileLetters_length = this.tileLetters.length;
     let tileColor_length = this.tileColors.length;
 
-    let tileLetter =
-      this.tileLetters[this.ramdom.integerInRange(0, tileLetters_length - 1)];
+    let tileLetter = this.tileGrid[x][y];
 
     let tileColor =
       this.tileColors[this.ramdom.integerInRange(0, tileColor_length - 1)];
@@ -213,40 +519,22 @@ export class Game extends Phaser.Scene {
     return tile;
   }
 
-  drawLine(startX, startY, endX, endY) {
-    let line = this.pathGraphics;
-    line.setDepth(10);
-    line.clear();
-
-    line.lineStyle(5, 0xff00ff, 1.0);
-    line.beginPath();
-    line.moveTo(startX, startY);
-    line.lineTo(endX, endY);
-    line.closePath();
-    line.strokePath();
-  }
-
-  findClosestValue(array, degree) {
-    // Initialize variables to keep track of the closest value and its difference
-    let closestValue = array[0];
-    let minDifference = Math.abs(degree - array[0]);
-
-    // Iterate through the array
-    for (let i = 1; i < array.length; i++) {
-      const currentDifference = Math.abs(degree - array[i]);
-
-      // Check if the current element has a smaller difference
-      if (currentDifference < minDifference) {
-        closestValue = array[i];
-        minDifference = currentDifference;
+  update(e) {
+    if (this.startGame) {
+      let now = new Date().getTime();
+      if (now - this.currentTime > 1000) {
+        this.currentTime = now;
+        this.currentCountDown--;
+        if (this.currentCountDown <= 0) {
+          this.startGame = false;
+          this.countDown.setText("60");
+        } else {
+          this.countDown.setText(this.currentCountDown);
+        }
       }
     }
 
-    return closestValue;
-  }
-
-  update(e) {
-    if (this.startDraw && this.startPoint && this.endPoint) {
+    if (this.startPoint && this.endPoint) {
       let { x: _startX, y: _startY } = this.startPoint;
       let { x: _endX, y: _endY } = this.endPoint;
 
@@ -264,13 +552,12 @@ export class Game extends Phaser.Scene {
 
       // find closest value
       const degree = Math.atan(m) * (180 / Math.PI);
-      const closest = this.findClosestValue(array, degree);
+      const closest = findClosestValue(array, degree);
 
       // check if the angle is close enough to a specific angle
       if (Math.abs(closest - degree) < 3) {
+        let _result = "";
         let c = startY - m * startX;
-
-        console.log("====================================");
         for (let i = 0; i < this.tileGrid.length; i++) {
           for (let j = 0; j < this.tileGrid[i].length; j++) {
             let tile = this.tileGrid[i][j];
@@ -307,11 +594,16 @@ export class Game extends Phaser.Scene {
               startToEndDis > startToIntersectDis - this.boardWidth * 0.02 &&
               startToEndDis > endToIntersectDis - this.boardWidth * 0.02
             ) {
+              _result += tile.letter;
               tile.setTint(0xff0000);
             } else {
               tile.clearTint();
             }
           }
+        }
+
+        if (_result.length > 0) {
+          this.result = _result;
         }
       }
     }

@@ -36,7 +36,33 @@ export class Bootstrap extends Phaser.Scene {
 
     // preload directory
     this.load.text("directory", "/dictionary.txt");
-
+    // load a to z png
+    this.load.image("a", "/2d/MB_Word/Alphabet/A.png");
+    this.load.image("b", "/2d/MB_Word/Alphabet/B.png");
+    this.load.image("c", "/2d/MB_Word/Alphabet/C.png");
+    this.load.image("d", "/2d/MB_Word/Alphabet/D.png");
+    this.load.image("e", "/2d/MB_Word/Alphabet/E.png");
+    this.load.image("f", "/2d/MB_Word/Alphabet/F.png");
+    this.load.image("g", "/2d/MB_Word/Alphabet/G.png");
+    this.load.image("h", "/2d/MB_Word/Alphabet/H.png");
+    this.load.image("i", "/2d/MB_Word/Alphabet/I.png");
+    this.load.image("j", "/2d/MB_Word/Alphabet/J.png");
+    this.load.image("k", "/2d/MB_Word/Alphabet/K.png");
+    this.load.image("l", "/2d/MB_Word/Alphabet/L.png");
+    this.load.image("m", "/2d/MB_Word/Alphabet/M.png");
+    this.load.image("n", "/2d/MB_Word/Alphabet/N.png");
+    this.load.image("o", "/2d/MB_Word/Alphabet/O.png");
+    this.load.image("p", "/2d/MB_Word/Alphabet/P.png");
+    this.load.image("q", "/2d/MB_Word/Alphabet/Q.png");
+    this.load.image("r", "/2d/MB_Word/Alphabet/R.png");
+    this.load.image("s", "/2d/MB_Word/Alphabet/S.png");
+    this.load.image("t", "/2d/MB_Word/Alphabet/T.png");
+    this.load.image("u", "/2d/MB_Word/Alphabet/U.png");
+    this.load.image("v", "/2d/MB_Word/Alphabet/V.png");
+    this.load.image("w", "/2d/MB_Word/Alphabet/W.png");
+    this.load.image("x", "/2d/MB_Word/Alphabet/X.png");
+    this.load.image("y", "/2d/MB_Word/Alphabet/Y.png");
+    this.load.image("z", "/2d/MB_Word/Alphabet/Z.png");
     this.load.on("progress", (value) => {
       // color 0x00ff00
       this.text.setColor(0x00ff00);

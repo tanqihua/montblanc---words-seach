@@ -1,12 +1,19 @@
 import IoPhaser from "./2d/phaser";
-import React from "react";
-
+import React, { useEffect, useMemo } from "react";
+import useStore from "./store";
 // function setdoc
-async function getDoc(count) {}
 function App() {
   const phaserGame = React.useRef(null);
   const [count, setCount] = React.useState(0);
-  getDoc();
+
+  const firebase = useStore((state) => state.firebase);
+
+  void useEffect(() => {
+    return () => {
+      firebase.init();
+    };
+  }, []);
+
   return (
     <div className="App">
       <IoPhaser ref={phaserGame} />
