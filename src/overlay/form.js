@@ -26,7 +26,7 @@ function Form({ setFormTrigger, formTrigger }) {
         zIndex: 100,
         transform: "translateX(-50%)",
         left: "50%",
-        // backgroundImage: "url(/2d/BG.jpg)",
+        backgroundImage: "url(/2d/BG.jpg)",
         overflow: "scroll",
         opacity: formTrigger ? 1 : 0,
         transition: "opacity 1s ease-in-out",

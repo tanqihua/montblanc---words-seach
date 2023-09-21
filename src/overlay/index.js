@@ -22,7 +22,6 @@ export const Index = React.forwardRef((props, ref) => {
         width: "100vw",
         height: "100svh",
         zIndex: 100,
-        pointerEvents: formTrigger ? "all" : "none",
       }}
     >
       <Form setFormTrigger={setFormTrigger} formTrigger={formTrigger} />
