@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Form from "./form";
 export const Index = React.forwardRef((props, ref) => {
-  const [formTrigger, setFormTrigger] = React.useState(false);
+  const [formTrigger, setFormTrigger] = React.useState(true);
 
   useEffect(() => {
     console.log(ref.current.scene.scenes[0]);

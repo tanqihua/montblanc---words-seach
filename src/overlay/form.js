@@ -30,7 +30,6 @@ function Form({ setFormTrigger, formTrigger }) {
         overflow: "scroll",
         opacity: formTrigger ? 1 : 0,
         transition: "opacity 1s ease-in-out",
-        pointerEvents: formTrigger ? "all" : "none",
         zIndex: formTrigger ? 100 : -1,
       }}
     >
@@ -38,6 +37,7 @@ function Form({ setFormTrigger, formTrigger }) {
         style={{
           width: "80%",
           margin: "auto",
+          height: "150svh",
         }}
       >
         <div className="block" style={{ height: "5svh" }} />
