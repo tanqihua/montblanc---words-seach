@@ -71,6 +71,11 @@ export class Bootstrap extends Phaser.Scene {
 
     // load song
     this.load.audio("bookflip", "/sounds/Montblanc_game_bookflip.mp3");
+    this.load.audio("bookfipEnd", "/sounds/Montblanc_game_bookflip_end2.mp3");
+    this.load.audio(
+      "heightlight",
+      "/sounds/Montblanc_game_highlight_answer.mp3"
+    );
 
     // load mb logo
     this.load.image("mblogo", "/2d/MB_logo.png");

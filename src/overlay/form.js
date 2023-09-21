@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function Form() {
+function Form({ setFormTrigger, formTrigger }) {
   const [info, setInfo] = React.useState({
     gental: null,
     terms: false,
@@ -14,73 +14,135 @@ function Form() {
     submit: false,
   });
 
-  useEffect(() => {
-    console.log(info);
-  }, [info]);
   return (
-    <div
+    <section
       style={{
         position: "absolute",
         top: 0,
         left: 0,
-        width: "80vw",
-        height: "100svh",
         maxWidth: "600px",
+        width: "100vw",
+        height: "100svh",
         zIndex: 100,
-        left: "50%",
         transform: "translateX(-50%)",
+        left: "50%",
+        // backgroundImage: "url(/2d/BG.jpg)",
+        overflow: "scroll",
+        opacity: formTrigger ? 1 : 0,
+        transition: "opacity 1s ease-in-out",
+        pointerEvents: formTrigger ? "all" : "none",
+        zIndex: formTrigger ? 100 : -1,
       }}
     >
-      <h2>YOUR SCORE</h2>
-      <h1>1500</h1>
-      <p>
-        Submit your score to be in the running to win a <br />
-        Montblanc xxx.
-      </p>
-      <span>*T&C applies. Limited redemptions available.</span>
-
-      <section
+      <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          width: "80%",
+          margin: "auto",
         }}
       >
+        <div className="block" style={{ height: "5svh" }} />
         <div
+          className="imgContainerHeight"
           style={{
-            display: "flex",
-            justifyContent: "center",
+            height: "10svh",
+            width: "fit-content",
+            margin: "auto",
           }}
         >
-          <SellecBTN param={"MR."} info={info} setInfo={setInfo} />
-          <SellecBTN param={"MS."} info={info} setInfo={setInfo} />
-          <SellecBTN param={"OTHER"} info={info} setInfo={setInfo} />
+          <img src="/2d/MB_logo.png" />
         </div>
 
-        <Input placeholder="First Name" info={info} setInfo={setInfo} />
-        <Input placeholder="Last Name" info={info} setInfo={setInfo} />
+        <h2>YOUR SCORE</h2>
+        <h1>1500</h1>
+        <p>
+          Submit your score to be in the running to win a <br />
+          Montblanc xxx.
+        </p>
 
-        <div
+        <div className="block" style={{ height: "1svh" }} />
+
+        <p
           style={{
-            display: "flex",
-            width: "90%",
-            justifyContent: "space-between",
+            fontSize: "1.7svh",
           }}
         >
-          <Input placeholder="DD" info={info} setInfo={setInfo} size="25%" />
-          <Input placeholder="D.O.B" info={info} setInfo={setInfo} size="35%" />
-          <Input placeholder="YYYY" info={info} setInfo={setInfo} size="25%" />
-        </div>
-        <Input placeholder="Email" info={info} setInfo={setInfo} />
-        <Input placeholder="Mobile" info={info} setInfo={setInfo} />
-      </section>
+          *T&C applies. Limited redemptions available.
+        </p>
 
-      <Terms setInfo={setInfo} info={info} />
+        <div className="block" style={{ height: "1.7svh" }} />
 
-      <Button param="SUBMIT" setInfo={setInfo} info={info} />
-      <div />
-      <Button param="PLAY AGAIN" />
-    </div>
+        <section
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <SellecBTN param={"MR."} info={info} setInfo={setInfo} />
+            <SellecBTN param={"MS."} info={info} setInfo={setInfo} />
+            <SellecBTN param={"OTHER"} info={info} setInfo={setInfo} />
+          </div>
+
+          <div className="block" style={{ height: "1.7svh" }} />
+
+          <Input placeholder="First Name" info={info} setInfo={setInfo} />
+          <Input placeholder="Last Name" info={info} setInfo={setInfo} />
+
+          <div
+            style={{
+              display: "flex",
+              width: "90%",
+              justifyContent: "space-between",
+            }}
+          >
+            <Input
+              placeholder="DD"
+              info={info}
+              setInfo={setInfo}
+              size="25%"
+              type={"number"}
+            />
+            <Input
+              placeholder="D.O.B"
+              info={info}
+              setInfo={setInfo}
+              size="35%"
+              type={"number"}
+            />
+            <Input
+              placeholder="YYYY"
+              info={info}
+              setInfo={setInfo}
+              size="25%"
+              type={"number"}
+            />
+          </div>
+          <Input placeholder="Email" info={info} setInfo={setInfo} />
+          <Input
+            placeholder="Mobile"
+            info={info}
+            setInfo={setInfo}
+            type={"number"}
+          />
+        </section>
+
+        <div className="block" style={{ height: "3svh" }} />
+
+        <Terms setInfo={setInfo} info={info} />
+
+        <Button param="SUBMIT" setInfo={setInfo} info={info} />
+        <div />
+        <Button param="PLAY AGAIN" />
+      </div>
+
+      <div className="block" style={{ height: "10svh" }} />
+    </section>
   );
 }
 // border: info.submit && info.terms ? "red 1px solid" : "none",
@@ -110,7 +172,7 @@ function Terms({ info = null, setInfo }) {
             justifyContent: "center",
             alignItems: "center",
             marginRight: "0.5rem",
-            border: info.submit === !info.terms ? "red 1px solid" : "none",
+            border: "none",
           }}
         >
           <div
@@ -146,10 +208,12 @@ function Input({
   setInfo,
   placeholder = "First Name",
   size = "90%",
+  type = "text",
 }) {
   return (
     <input
       placeholder={placeholder}
+      type={type}
       onChange={(e) => {
         setInfo({
           ...info,
@@ -159,11 +223,8 @@ function Input({
       style={{
         textAlign: "center",
         color: "black",
-        border:
-          info.submit === !info[placeholder.toLowerCase()]
-            ? "red 1px solid"
-            : "none",
-        backgroundColor: "#f2f2f2",
+        border: "none",
+        backgroundColor: "hsl(0deg 0% 85.1%)",
         width: size,
         padding: "0.7rem",
         margin: "0.5rem 0",
@@ -195,13 +256,16 @@ function SellecBTN({ param = "MR.", info = null, setInfo }) {
           borderRadius: "50%",
           marginRight: "0.25rem",
           backgroundColor: info.gental === param ? "#afadad" : "transparent",
-          border:
-            info.submit === !info.gental
-              ? "red 0.1rem solid"
-              : "0.1rem solid #afadad",
+          border: ".1rem solid #afadad",
         }}
       />
-      <h4>{param}</h4>
+      <h4
+        style={{
+          fontSize: "2.3svh",
+        }}
+      >
+        {param}
+      </h4>
     </div>
   );
 }
@@ -221,6 +285,8 @@ function Button({ param = "SUBMIT", info, setInfo }) {
           color: "#fff",
           border: "none",
           margin: "auto",
+          padding: "0.8rem",
+          width: "35vw",
         }}
         onClick={() => {
           if (setInfo) {

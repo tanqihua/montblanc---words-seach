@@ -119,7 +119,7 @@ export class Game extends Phaser.Scene {
         this.indicatorText = this.add
           .text(
             this.game.config.width * 0.5,
-            this.game.config.height * 0.24,
+            this.game.config.height * 0.26,
             "FIND THE WORDS",
             {
               fontSize: this.game.config.height * 0.022,
@@ -135,7 +135,7 @@ export class Game extends Phaser.Scene {
         this.countDownText = this.add
           .text(
             this.game.config.width * 0.09,
-            this.game.config.height * 0.07,
+            this.game.config.height * 0.09,
             "100",
             {
               fontSize: this.game.config.height * 0.05,
@@ -164,7 +164,7 @@ export class Game extends Phaser.Scene {
         this.textPoint = this.add
           .text(
             this.game.config.width * 0.88,
-            this.game.config.height * 0.07,
+            this.game.config.height * 0.09,
             "00",
             {
               fontSize: this.game.config.height * 0.05,
@@ -193,8 +193,8 @@ export class Game extends Phaser.Scene {
           .text(
             this.game.config.width * 0.5,
             this.game.config.height * 0.5 +
-              ((this.game.config.height * 0.65 * 11) / 16) * 0.55,
-            "none",
+              ((this.game.config.height * 0.65 * 11) / 16) * 0.52,
+            "NONE",
             {
               fontSize: this.game.config.height * 0.02,
               fontFamily: "Montblant",
@@ -250,6 +250,7 @@ export class Game extends Phaser.Scene {
 
     this.icon.on("pointerdown", () => {
       if (this.icon.alpha === 1) {
+        this.clue.setAngle(1);
         this.clue.setText(this.getClue());
         // set fx color
         fx.color = 0xf39c98;
@@ -281,22 +282,35 @@ export class Game extends Phaser.Scene {
 
   endGame() {
     // this.bookPlay = false;
-    this.textPoint.alpha = 0;
-    this._textPoint.alpha = 0;
-    this.countDownText.alpha = 0;
-    this._countDownText.alpha = 0;
-    this.indicatorText.alpha = 0;
-    this.clue.alpha = 0;
-    this.icon.alpha = 0;
-
     for (let tiles of this.tileGrid) {
       for (let tile of tiles) {
-        tile.alpha = 0;
+        this.tweens.add({
+          targets: tile,
+          alpha: 0,
+          duration: 700,
+          delay: 500,
+        });
       }
     }
 
-    this.partGraphics2.clear();
-    this.pathGraphics.clear();
+    this.tweens.add({
+      targets: [
+        this.textPoint,
+        this._textPoint,
+        this.countDownText,
+        this._countDownText,
+        this.indicatorText,
+        this.clue,
+        this.icon,
+      ],
+      alpha: 0,
+      duration: 700,
+      delay: 500,
+      onComplete: () => {
+        this.partGraphics2.clear();
+        this.pathGraphics.clear();
+      },
+    });
 
     const { width } = this.logo;
     const scale = (this.game.config.height * 0.1 * 2.77) / width;
@@ -308,21 +322,34 @@ export class Game extends Phaser.Scene {
       duration: 2500,
     });
 
-    this.book.anims.playReverse("flip").on("animationcomplete", () => {
-      this.bookPlay = false;
-      this.textPoint.alpha = 0;
-      this._textPoint.alpha = 0;
-      this.countDownText.alpha = 0;
-      this._countDownText.alpha = 0;
-      this.indicatorText.alpha = 0;
-      this.clue.alpha = 0;
-      this.icon.alpha = 0;
+    this.time.delayedCall(800, () => {
+      this.sound.play("bookfipEnd");
+      this.book.anims.playReverse("flip").on("animationcomplete", () => {
+        this.bookPlay = false;
+        this.textPoint.alpha = 0;
+        this._textPoint.alpha = 0;
+        this.countDownText.alpha = 0;
+        this._countDownText.alpha = 0;
+        this.indicatorText.alpha = 0;
+        this.clue.alpha = 0;
+        this.icon.alpha = 0;
 
-      for (let tiles of this.tileGrid) {
-        for (let tile of tiles) {
-          tile.alpha = 0;
+        for (let tiles of this.tileGrid) {
+          for (let tile of tiles) {
+            tile.alpha = 0;
+          }
         }
-      }
+
+        this.tweens.add({
+          targets: this.book,
+          alpha: 0,
+          duration: 700,
+          onComplete: () => {
+            this.logo.alpha = 0;
+            window.setFormTrigger();
+          },
+        });
+      });
     });
   }
   // BOOK
@@ -544,6 +571,10 @@ export class Game extends Phaser.Scene {
               this.textPoint.setText(this.point);
             });
           }
+
+          // play sound
+          this.sound.play("heightlight");
+
           this.textPoint.setText(this.point);
 
           this.drawLine3(
