@@ -13,9 +13,11 @@ function App() {
     };
   }, []);
 
+  return <Overlay ref={phaserGame} />;
+
   return (
     <div className="App">
-      <IoPhaser ref={phaserGame} />
+      {/* <IoPhaser ref={phaserGame} /> */}
       <Overlay ref={phaserGame} />
     </div>
   );

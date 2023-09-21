@@ -15,19 +15,14 @@ function Form({ setFormTrigger, formTrigger }) {
   });
 
   return (
-    <section
+    <div
       style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
         maxWidth: "600px",
         width: "100vw",
         height: "100svh",
+
         zIndex: 100,
-        transform: "translateX(-50%)",
-        left: "50%",
         backgroundImage: "url(/2d/BG.jpg)",
-        overflow: "scroll",
         opacity: formTrigger ? 1 : 0,
         transition: "opacity 1s ease-in-out",
         zIndex: formTrigger ? 100 : -1,
@@ -37,7 +32,7 @@ function Form({ setFormTrigger, formTrigger }) {
         style={{
           width: "80%",
           margin: "auto",
-          height: "150svh",
+          height: "200vh",
         }}
       >
         <div className="block" style={{ height: "5svh" }} />
@@ -142,7 +137,7 @@ function Form({ setFormTrigger, formTrigger }) {
       </div>
 
       <div className="block" style={{ height: "10svh" }} />
-    </section>
+    </div>
   );
 }
 // border: info.submit && info.terms ? "red 1px solid" : "none",

@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import Form from "./form";
 export const Index = React.forwardRef((props, ref) => {
-  const [formTrigger, setFormTrigger] = React.useState(false);
-
-  useEffect(() => {
-    console.log(ref.current.scene.scenes[0]);
-  }, [ref]);
+  const [formTrigger, setFormTrigger] = React.useState(true);
 
   useEffect(() => {
     window.setFormTrigger = () => {
@@ -16,16 +12,11 @@ export const Index = React.forwardRef((props, ref) => {
   return (
     <div
       style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
         width: "100vw",
-        height: "100svh",
-        zIndex: 100,
       }}
     >
       <Form setFormTrigger={setFormTrigger} formTrigger={formTrigger} />
-      <Preloading />
+      {/* <Preloading /> */}
     </div>
   );
 });

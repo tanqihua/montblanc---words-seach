@@ -282,6 +282,7 @@ export class Game extends Phaser.Scene {
 
   endGame() {
     // this.bookPlay = false;
+    this.book.removeInteractive();
     for (let tiles of this.tileGrid) {
       for (let tile of tiles) {
         this.tweens.add({
