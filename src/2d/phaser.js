@@ -13,6 +13,12 @@ const config = {
   scale: {
     mode: Phaser.Scale.ScaleModes.FIT,
   },
+  fx: {
+    glow: {
+      distance: 16,
+      quality: 0.05,
+    },
+  },
   physics: {
     default: "arcade",
     arcade: {

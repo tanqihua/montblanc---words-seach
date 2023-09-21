@@ -69,11 +69,20 @@ export class Bootstrap extends Phaser.Scene {
     this.load.image("y", "/2d/MB_Word/Alphabet/Y.png");
     this.load.image("z", "/2d/MB_Word/Alphabet/Z.png");
 
+    // load song
+    this.load.audio("bookflip", "/sounds/Montblanc_game_bookflip.mp3");
+
     // load mb logo
     this.load.image("mblogo", "/2d/MB_logo.png");
 
     // load icon
     this.load.image("icon", "/2d/icon.png");
+
+    // load text
+    this.load.image("text", "/2d/text.png");
+
+    // load bg
+    this.load.image("bg", "/2d/BG.jpg");
 
     this.load.on("progress", (value) => {
       // color 0x00ff00
