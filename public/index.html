@@ -9,12 +9,18 @@
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      rel="preload"
+      as="font"
+      href="%PUBLIC_URL%/font/MontblancType-Regular.ttf"
+      type="font/ttf"
+    />
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -24,7 +30,15 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <style>
+    <style media="screen" type="text/css">
+      @font-face {
+        font-family: "Montblant";
+        src: url("/font/MontblancType-Regular.ttf");
+      }
+      @font-face {
+        font-family: "Montblant-bold";
+        src: url("/font/MontblancType-Bold.ttf");
+      }
       * {
         margin: 0;
         padding: 0;
@@ -36,10 +50,7 @@
         background-color: #ffffff;
       }
       /* font face */
-      @font-face {
-        font-family: "montblantFont";
-        src: url("/Brushwel.otf");
-      }
+
       .App {
         overflow: hidden;
         width: 100vw;
@@ -55,6 +66,21 @@
         font: 0.5em sans-serif;
         line-height: 1;
         text-align: left;
+      }
+      .imgContainer img {
+        width: 100%;
+      }
+      .spin {
+        animation: spin 8s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
     </style>
     <title>React App</title>

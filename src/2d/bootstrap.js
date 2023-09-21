@@ -23,7 +23,12 @@ export class Bootstrap extends Phaser.Scene {
   }
 
   preload() {
-    // hander load books flip
+    // pre load font
+    this.load.script(
+      "webfont",
+      "https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
+    );
+
     let path = "/Book_Flip/webp/";
     let assetname = "Book_Flip_";
     for (let i = 0; i <= 99; i++) {
@@ -63,15 +68,17 @@ export class Bootstrap extends Phaser.Scene {
     this.load.image("x", "/2d/MB_Word/Alphabet/X.png");
     this.load.image("y", "/2d/MB_Word/Alphabet/Y.png");
     this.load.image("z", "/2d/MB_Word/Alphabet/Z.png");
+
+    // load mb logo
+    this.load.image("mblogo", "/2d/MB_logo.png");
+
+    // load icon
+    this.load.image("icon", "/2d/icon.png");
+
     this.load.on("progress", (value) => {
       // color 0x00ff00
       this.text.setColor(0x00ff00);
       this.text.setText("Loading: " + parseInt(value * 100) + "%");
-    });
-
-    this.load.on("complete", () => {
-      this.scene.start("game");
-      // window.setPreload();
     });
   }
 
@@ -82,6 +89,9 @@ export class Bootstrap extends Phaser.Scene {
       frameRate: 30,
       repeat: 0,
     });
+
+    window.setPreload();
+    this.scene.start("game");
   }
 
   update() {}

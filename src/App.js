@@ -1,11 +1,11 @@
 import IoPhaser from "./2d/phaser";
 import React, { useEffect, useMemo } from "react";
-import useStore from "./store";
+import useFirebase from "./store/firebase";
 import Overlay from "./overlay";
 // function setdoc
 function App() {
   const phaserGame = React.useRef(null);
-  const firebase = useStore((state) => state.firebase);
+  const firebase = useFirebase((state) => state.firebase);
 
   void useEffect(() => {
     return () => {
