@@ -406,7 +406,7 @@ export class Game extends Phaser.Scene {
       .sprite(
         this.game.config.width * 0.5,
         this.game.config.height * 0.5,
-        "Book_Flip_000"
+        "book"
       )
       .setDepth(-1);
     this.bookPlay = false;

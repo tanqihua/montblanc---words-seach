@@ -29,15 +29,13 @@ export class Bootstrap extends Phaser.Scene {
       "https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
     );
 
-    let path = "/Book_Flip/webp/";
-    let assetname = "Book_Flip_";
-    for (let i = 0; i <= 99; i++) {
-      let current = i.toString().padStart(3, "0");
-      this.load.image(
-        assetname + current,
-        path + assetname + current + ".webp"
-      );
-    }
+    // load sprite sheet
+    this.load.spritesheet("book", "/2d/test.webp", {
+      frameWidth: 800,
+      frameHeight: 800,
+      startFrame: 0,
+      endFrame: 99,
+    });
 
     // preload directory
     this.load.text("directory", "/dictionary.txt");
@@ -99,12 +97,15 @@ export class Bootstrap extends Phaser.Scene {
   create() {
     this.anims.create({
       key: "flip",
-      frames: ArrayFrame(0, 99, false),
+      frames: this.anims.generateFrameNumbers("book", {
+        start: 0,
+        end: 99,
+      }),
       frameRate: 30,
       repeat: 0,
     });
 
-    window.setPreload();
+    // window.setPreload();
     this.scene.start("game");
   }
 
