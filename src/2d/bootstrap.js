@@ -30,7 +30,7 @@ export class Bootstrap extends Phaser.Scene {
     );
 
     // load sprite sheet
-    this.load.spritesheet("book", "/2d/test.png", {
+    this.load.spritesheet("book", "/2d/test.webp", {
       frameWidth: 600,
       frameHeight: 600,
       startFrame: 0,
