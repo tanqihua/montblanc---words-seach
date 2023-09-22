@@ -97,7 +97,7 @@ const LegerLine = () => {
       <span
         className="mt-auto"
         style={{
-          fontSize: "2vw",
+          fontSize: "1.8vw",
           color: "black",
         }}
       >
@@ -111,7 +111,7 @@ const LegerLine = () => {
         >
           ©
         </span>
-        {"  "} Disney and Tommy Hilfiger. Powered by{" "}
+        {"  "} ALL RIGHTS RESERVED BY MONTBLANC. POWERED BY{" "}
         <a
           style={{
             color: "black",

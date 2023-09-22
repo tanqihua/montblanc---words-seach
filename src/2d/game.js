@@ -161,7 +161,7 @@ export class Game extends Phaser.Scene {
           .text(
             this.game.config.width * 0.88,
             this.game.config.height * 0.09,
-            "00",
+            "0/10",
             {
               fontSize: this.game.config.height * 0.05,
               fontFamily: "Montblant",
@@ -246,11 +246,16 @@ export class Game extends Phaser.Scene {
 
     this.icon.on("pointerdown", () => {
       if (this.icon.alpha === 1) {
-        this.clue.setAngle(1);
+        this.clue.setAlpha(1);
         this.clue.setText(this.getClue());
         // set fx color
         fx.color = 0xf39c98;
       }
+    });
+
+    this.icon.on("pointerup", () => {
+      fx.color = 0xbff1f5;
+      this.clue.setAlpha(0);
     });
 
     // store sellected tile
@@ -268,10 +273,8 @@ export class Game extends Phaser.Scene {
       // delay
       this.time.delayedCall(i * 50, () => {
         this.point -= 2;
-        this.textPoint.setText(this.point);
       });
     }
-    this.textPoint.setText(this.point);
 
     return clud;
   }
@@ -386,7 +389,6 @@ export class Game extends Phaser.Scene {
       this._textPoint.setAlpha(1);
       this._countDownText.setAlpha(1);
       this.indicatorText.setAlpha(1);
-      this.clue.setAlpha(1);
       this.icon.setAlpha(1);
 
       for (let tiles of this.tileGrid) {
@@ -565,14 +567,13 @@ export class Game extends Phaser.Scene {
             // delay
             this.time.delayedCall(i * 25, () => {
               this.point += 2;
-              this.textPoint.setText(this.point);
             });
           }
 
           // play sound
           this.sound.play("heightlight");
 
-          this.textPoint.setText(this.point);
+          this.textPoint.setText(11 - this.dictionary.length + "/10");
 
           this.drawLine3(
             drawLine.start.x,
@@ -821,6 +822,10 @@ export class Game extends Phaser.Scene {
     return tile;
   }
 
+  reverseString(str) {
+    return str.split("").reverse().join("");
+  }
+
   update(e) {
     if (new Date().getTime() - this.currentTime > 1000 && this.startGame) {
       this.currentTime = new Date().getTime();
@@ -894,8 +899,12 @@ export class Game extends Phaser.Scene {
               startToEndDis > endToIntersectDis - this.boardWidth * 0.02
             ) {
               _result += tile.letter;
-
               let _result_uppercse = _result.toUpperCase();
+
+              // specific angle reverse
+              if (closest === -45 && startX > endX) {
+                _result_uppercse = this.reverseString(_result_uppercse);
+              }
               this.indicatorText.setText(_result_uppercse);
               // check if the tile is already selected
               if (!this.collectedTile.includes(tile)) {
