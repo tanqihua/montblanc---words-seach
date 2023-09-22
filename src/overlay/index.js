@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Form from "./form";
 export const Index = React.forwardRef((props, ref) => {
+  const { gameRef } = props;
   const [formTrigger, setFormTrigger] = React.useState(false);
 
   useEffect(() => {
@@ -16,7 +17,11 @@ export const Index = React.forwardRef((props, ref) => {
         pointerEvents: formTrigger ? "all" : "none",
       }}
     >
-      <Form setFormTrigger={setFormTrigger} formTrigger={formTrigger} />
+      <Form
+        setFormTrigger={setFormTrigger}
+        formTrigger={formTrigger}
+        gameRef={gameRef}
+      />
       <Preloading />
     </div>
   );

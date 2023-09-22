@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function Form({ setFormTrigger, formTrigger }) {
+function Form({ setFormTrigger, formTrigger, gameRef }) {
   const [info, setInfo] = React.useState({
     gental: null,
     terms: false,
@@ -54,7 +54,7 @@ function Form({ setFormTrigger, formTrigger }) {
         </div>
 
         <h2>YOUR SCORE</h2>
-        <h1>1500</h1>
+        <h1>{gameRef.current?.scene?.scenes[1].point}</h1>
         <p>
           Submit your score to be in the running to win a <br />
           Montblanc xxx.

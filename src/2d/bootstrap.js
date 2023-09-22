@@ -24,10 +24,7 @@ export class Bootstrap extends Phaser.Scene {
 
   preload() {
     // pre load font
-    this.load.script(
-      "webfont",
-      "https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
-    );
+    this.load.script("webfont", "/webfont.js");
 
     let path = "/Book_Flip/webp/";
     let assetname = "Book_Flip_";

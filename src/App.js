@@ -7,16 +7,18 @@ function App() {
   const phaserGame = React.useRef(null);
   const firebase = useFirebase((state) => state.firebase);
 
-  // void useEffect(() => {
-  //   return () => {
-  //     firebase.init();
-  //   };
-  // }, []);
+  void useEffect(() => {
+    console.log(phaserGame.current.scene.scenes[1]);
+
+    return () => {
+      firebase.init();
+    };
+  }, []);
 
   return (
     <div className="App">
       <IoPhaser ref={phaserGame} />
-      <Overlay ref={phaserGame} />
+      <Overlay gameRef={phaserGame} />
     </div>
   );
 }
