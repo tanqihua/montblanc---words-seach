@@ -190,7 +190,7 @@ function Preloading({ text = "ing..." }) {
             maxWidth: "200px",
           }}
         >
-          <img src="/2d/icon.png" />
+          <img src="/2d/icon2.png" />
         </div>
 
         {/* <h5
