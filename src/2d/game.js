@@ -136,7 +136,7 @@ export class Game extends Phaser.Scene {
           .text(
             this.game.config.width * 0.09,
             this.game.config.height * 0.09,
-            "100",
+            "3",
             {
               fontSize: this.game.config.height * 0.05,
               fontFamily: "Montblant-bold",

@@ -26,13 +26,19 @@ function Form({ setFormTrigger, formTrigger }) {
         opacity: formTrigger ? 1 : 0,
         transition: "opacity 1s ease-in-out",
         zIndex: formTrigger ? 100 : -1,
+        padding: "0 2rem",
+        overflow: "scroll",
+
+        position: "absolute",
+        top: 0,
+        left: 0,
+
+        pointerEvents: formTrigger ? "all" : "none",
       }}
     >
       <div
         style={{
-          width: "80%",
           margin: "auto",
-          height: "200vh",
         }}
       >
         <div className="block" style={{ height: "5svh" }} />

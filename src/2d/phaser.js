@@ -36,7 +36,15 @@ const IoPhaser = React.forwardRef((props, ref) => {
     return () => phaserGame.destroy(true);
   }, []);
 
-  return <div id="phaser-container"></div>;
+  return (
+    <div
+      id="phaser-container"
+      style={{
+        width: "100vw",
+        height: "100svh",
+      }}
+    ></div>
+  );
 });
 
 export default IoPhaser;
