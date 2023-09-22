@@ -412,12 +412,12 @@ export class Game extends Phaser.Scene {
       (this.game.config.height * 0.62 * 16) / 11
     );
 
-    this.book.setInteractive();
-    this.book.on("pointerdown", () => {
-      if (!this.bookPlay) {
-        this.startMainGame();
-      }
-    });
+    // this.book.setInteractive();
+    // this.book.on("pointerdown", () => {
+    //   if (!this.bookPlay) {
+    //     this.startMainGame();
+    //   }
+    // });
   }
 
   // LINE

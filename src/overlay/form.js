@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function Form({ setFormTrigger, formTrigger, gameRef }) {
+function Form({ setFormTrigger, formTrigger, gameRef, setSubmitTrigger }) {
   const [info, setInfo] = React.useState({
     gental: null,
     terms: false,
@@ -22,7 +22,6 @@ function Form({ setFormTrigger, formTrigger, gameRef }) {
         height: "100svh",
 
         zIndex: 100,
-        backgroundImage: "url(/2d/BG.jpg)",
         opacity: formTrigger ? 1 : 0,
         transition: "opacity 1s ease-in-out",
         zIndex: formTrigger ? 100 : -1,
@@ -137,9 +136,31 @@ function Form({ setFormTrigger, formTrigger, gameRef }) {
 
         <Terms setInfo={setInfo} info={info} />
 
-        <Button param="SUBMIT" setInfo={setInfo} info={info} />
+        <div
+          onClick={() => {
+            setSubmitTrigger(true);
+            setFormTrigger(false);
+          }}
+          style={{
+            width: "fit-content",
+            margin: "auto",
+          }}
+        >
+          <Button param="SUBMIT" setInfo={setInfo} info={info} />
+        </div>
         <div />
-        <Button param="PLAY AGAIN" />
+        <div
+          style={{
+            width: "fit-content",
+            margin: "auto",
+          }}
+          onClick={() => {
+            // refresh page
+            window.location.reload();
+          }}
+        >
+          <Button param="PLAY AGAIN" />
+        </div>
       </div>
 
       <div className="block" style={{ height: "10svh" }} />

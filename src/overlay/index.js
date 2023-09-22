@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import Form from "./form";
+import Submit from "./submit";
 export const Index = React.forwardRef((props, ref) => {
   const { gameRef } = props;
+  const [startGame, setStartGame] = React.useState(false);
   const [formTrigger, setFormTrigger] = React.useState(false);
+  const [submitTrigger, setSubmitTrigger] = React.useState(false);
 
   useEffect(() => {
     window.setFormTrigger = () => {
@@ -15,17 +18,114 @@ export const Index = React.forwardRef((props, ref) => {
       style={{
         width: "100vw",
         pointerEvents: formTrigger ? "all" : "none",
+        height: "100svh",
       }}
     >
+      <Button
+        param={"START"}
+        startGame={startGame}
+        setStartGame={setStartGame}
+        gameRef={gameRef}
+      />
+      <Submit
+        setSubmitTrigger={setSubmitTrigger}
+        submitTrigger={submitTrigger}
+      />
       <Form
         setFormTrigger={setFormTrigger}
         formTrigger={formTrigger}
         gameRef={gameRef}
+        setSubmitTrigger={setSubmitTrigger}
       />
       <Preloading />
+
+      <LegerLine />
     </div>
   );
 });
+
+function Button({ param = "SUBMIT", startGame, setStartGame, gameRef }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        margin: "1.5rem 0",
+        position: "absolute",
+        bottom: "7.5%",
+        left: "50%",
+        transform: "translate(-50%,0)",
+        opacity: startGame ? 0 : 1,
+        transition: "opacity 1s ease-in-out",
+        pointerEvents: startGame ? "none" : "all",
+      }}
+    >
+      <button
+        style={{
+          backgroundColor: "#6b9397",
+          color: "#fff",
+          border: "none",
+          margin: "auto",
+          padding: "0.8rem",
+          width: "35vw",
+        }}
+        onClick={() => {
+          setStartGame(true);
+          gameRef.current?.scene?.scenes[1].startMainGame();
+        }}
+      >
+        {param}
+      </button>
+    </div>
+  );
+}
+
+const LegerLine = () => {
+  return (
+    <div
+      className="footer"
+      style={{
+        position: "absolute",
+        bottom: "1.5%",
+        left: "50%",
+        zIndex: 10000000000000,
+        transform: "translate(-50%,0)",
+        width: "100vw",
+        textAlign: "center",
+      }}
+    >
+      <span
+        className="mt-auto"
+        style={{
+          fontSize: "2vw",
+          color: "black",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "2.5vw",
+            position: "relative",
+            top: "0.25vw",
+            marginRight: "0.8vw",
+          }}
+        >
+          ©
+        </span>
+        {"  "} Disney and Tommy Hilfiger. Powered by{" "}
+        <a
+          style={{
+            color: "black",
+          }}
+          href="https://www.instagram.com/conten.tech/?hl=en"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          CONTEN.T
+        </a>
+      </span>
+    </div>
+  );
+};
 
 function Preloading({ text = "ing..." }) {
   const [preload, setPreload] = React.useState(true);
