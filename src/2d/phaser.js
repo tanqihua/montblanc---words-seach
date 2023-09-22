@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { Bootstrap } from "./bootstrap.js";
 import { Game } from "./game.js";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 
 const config = {
   type: Phaser.AUTO,
@@ -37,13 +37,15 @@ const IoPhaser = React.forwardRef((props, ref) => {
   }, []);
 
   return (
-    <div
-      id="phaser-container"
-      style={{
-        width: "100vw",
-        height: "100svh",
-      }}
-    ></div>
+    <Suspense fallback={null}>
+      <div
+        id="phaser-container"
+        style={{
+          width: "100vw",
+          height: "100svh",
+        }}
+      ></div>
+    </Suspense>
   );
 });
 

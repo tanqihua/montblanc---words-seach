@@ -7,11 +7,11 @@ function App() {
   const phaserGame = React.useRef(null);
   const firebase = useFirebase((state) => state.firebase);
 
-  void useEffect(() => {
-    return () => {
-      firebase.init();
-    };
-  }, []);
+  // void useEffect(() => {
+  //   return () => {
+  //     firebase.init();
+  //   };
+  // }, []);
 
   return (
     <div className="App">

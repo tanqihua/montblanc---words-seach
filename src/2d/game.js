@@ -16,10 +16,6 @@ export class Game extends Phaser.Scene {
   create() {
     this.mainWidth = (this.game.config.height * 0.65 * 11) / 16;
 
-    if (window.innerWidth > window.innerHeight) {
-      this.mainWidth = this.game.config.width * 0.35;
-    }
-
     // check result
     this.result = null;
 
