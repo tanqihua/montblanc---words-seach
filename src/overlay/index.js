@@ -193,7 +193,7 @@ function Preloading({ text = "ing..." }) {
           <img src="/2d/icon.png" />
         </div>
 
-        <h5
+        {/* <h5
           style={{
             fontWeight: "400",
             textTransform: "uppercase",
@@ -201,7 +201,7 @@ function Preloading({ text = "ing..." }) {
           }}
         >
           Load{displayText}
-        </h5>
+        </h5> */}
       </div>
     </div>
   );
