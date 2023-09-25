@@ -89,6 +89,8 @@ export class Bootstrap extends Phaser.Scene {
     // load clueText
     this.load.image("clueText", "/2d/clueText.png");
 
+    this.load.image("b_logo", "/2d/B_logo.png");
+
     // load sprite sheet
     this.load.spritesheet("pointsys", "/2d/point.png", {
       frameWidth: 167,

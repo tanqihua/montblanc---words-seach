@@ -35,7 +35,7 @@ function Submit({ submitTrigger, trackBtn }) {
           <img src="/2d/MB_logo.png" />
         </div>
 
-        <div className="block" style={{ height: "3svh" }} />
+        <div className="block" style={{ height: "4svh" }} />
 
         <h2
           style={{
@@ -45,17 +45,51 @@ function Submit({ submitTrigger, trackBtn }) {
           SUBMITTED!
         </h2>
 
-        <div className="block" style={{ height: "3svh" }} />
+        <div className="block" style={{ height: "1svh" }} />
 
-        <p>THANKS FOR PLAYING</p>
+        <div
+          className="submitTextContainer"
+          style={{
+            padding: "2vh 0",
+          }}
+        >
+          <h4
+            style={{
+              textTransform: "uppercase",
+            }}
+          >
+            THANKS FOR PLAYING <br /> We invite you to discover the new <br />
+            Montblanc Extreme 3.0 collection.{" "}
+          </h4>
 
-        <div className="block" style={{ height: "35svh" }} />
+          <div className="block" style={{ height: "3svh" }} />
 
-        <p>
-          To receive your gift*, screenshot this page and <br /> show this to
-          the friendly staff at Montblanc’s <br />
-          pop up at Vivo City from 27th Sept – 9 Oct, or <br />
-          visit any Montblanc boutique at:
+          <h4>
+            To receive your gift*, screenshot this <br />
+            page and show this to the friendly staff <br />
+            at Montblanc’s boutiques.
+          </h4>
+
+          <div className="block" style={{ height: "3svh" }} />
+
+          <h4>Ngee Ann City #01-34</h4>
+          <h4>Paragon #01-28</h4>
+          <h4>Marina Bay Sands #B2-64</h4>
+          <h4>Raffles City #01-29</h4>
+        </div>
+
+        <div className="block" style={{ height: "1svh" }} />
+
+        <p
+          style={{
+            fontSize: "1.4svh",
+          }}
+        >
+          *Only 1 redemption per person. Complimentary gift is limited.
+          <br />
+          Montblanc reserves the right to change these terms and conditions{" "}
+          <br />
+          at any time without prior notice
         </p>
 
         <div className="block" style={{ height: "1svh" }} />
@@ -71,8 +105,27 @@ function Submit({ submitTrigger, trackBtn }) {
             window.location.reload();
           }}
         >
-          <Button param="PLAY AGAIN" />
+          <Button param="SUBMIT" />
         </div>
+
+        <div
+          style={{
+            width: "fit-content",
+            margin: "auto",
+          }}
+          onClick={() => {
+            // refresh page
+            trackBtn("playAgainBTN");
+            window.location.reload();
+          }}
+        >
+          <Button param="BROWSE COLLECTION" />
+        </div>
+
+        <div className="block" style={{ height: "4svh" }} />
+        <ShareExperance />
+
+        <div className="block" style={{ height: "10svh" }} />
       </div>
     </div>
   );
@@ -84,7 +137,7 @@ function Button({ param = "SUBMIT", info, setInfo }) {
       style={{
         display: "flex",
         justifyContent: "center",
-        margin: "1.5rem 0",
+        margin: "1rem 0",
       }}
     >
       <button
@@ -94,7 +147,7 @@ function Button({ param = "SUBMIT", info, setInfo }) {
           border: "none",
           margin: "auto",
           padding: "0.8rem",
-          width: "35vw",
+          width: "50vw",
         }}
         onClick={() => {
           if (setInfo) {
@@ -111,4 +164,57 @@ function Button({ param = "SUBMIT", info, setInfo }) {
   );
 }
 
+export const ShareExperance = () => {
+  return (
+    <div>
+      <p
+        style={{
+          color: "#6b9397",
+          textAlign: "center",
+        }}
+      >
+        SHARE THE EXPERIENCE
+      </p>
+
+      <div className="block" style={{ height: "1svh" }} />
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          margin: "0 auto",
+          width: "30vw",
+        }}
+      >
+        <div
+          className="imgContainer"
+          style={{
+            width: "8vw",
+            maxWidth: "50px",
+          }}
+        >
+          <img src="/2d/whatsapp.png" />
+        </div>
+        <div
+          className="imgContainer"
+          style={{
+            width: "8vw",
+            maxWidth: "50px",
+          }}
+        >
+          <img src="/2d/facebook.png" />
+        </div>
+        <div
+          className="imgContainer"
+          style={{
+            width: "8vw",
+            maxWidth: "50px",
+          }}
+        >
+          <img src="/2d/twitter.png" />
+        </div>
+      </div>
+    </div>
+  );
+};
 export default Submit;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import { ShareExperance } from "./submit";
 function Form({
   setFormTrigger,
   formTrigger,
@@ -38,6 +38,8 @@ function Form({
         padding: "0 2rem",
         overflow: "scroll",
 
+        backgroundColor: "#fff",
+
         position: "absolute",
         top: 0,
         left: 0,
@@ -67,11 +69,11 @@ function Form({
         <h2>YOUR SCORE</h2>
         <h1>{gameRef.current?.scene?.scenes[1].point ?? 0}</h1>
         <p>
-          Submit your score to be in the running to win a <br />
-          Montblanc xxx.
+          Submit your score to redeem a complimentary <br />
+          gift* at any Montblanc boutiques.
         </p>
 
-        <div className="block" style={{ height: "1svh" }} />
+        <div className="block" style={{ height: "2.5svh" }} />
 
         <p
           style={{
@@ -121,17 +123,17 @@ function Form({
               type={"number"}
             />
             <Input
-              placeholder="D.O.B"
+              placeholder="MM"
               info={info}
               setInfo={setInfo}
-              size="35%"
+              size="25%"
               type={"number"}
             />
             <Input
               placeholder="YYYY"
               info={info}
               setInfo={setInfo}
-              size="25%"
+              size="35%"
               type={"number"}
             />
           </div>
@@ -234,6 +236,8 @@ function Form({
           />
         </div>
       </div>
+
+      <ShareExperance />
 
       <div className="block" style={{ height: "10svh" }} />
     </div>

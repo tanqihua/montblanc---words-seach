@@ -122,10 +122,10 @@ export class Game extends Phaser.Scene {
           .text(
             this.game.config.width * 0.5,
             this.game.config.height * 0.26,
-            "FIND THE WORDS",
+            "SPOT 10 WORDS \nWITHIN 120 SECONDS",
             {
-              fontSize: this.game.config.height * 0.022,
-              fontFamily: "Montblant-bold",
+              fontSize: this.game.config.height * 0.018,
+              fontFamily: "Montblant",
               color: "#000",
               align: "center",
             }
@@ -133,12 +133,27 @@ export class Game extends Phaser.Scene {
           .setOrigin(0.5)
           .setAlpha(this._a);
 
+        // this.title = this.add
+        //   .text(
+        //     this.game.config.width * 0.5,
+        //     this.game.config.height * 0.165,
+        //     "Spot 10 words within 120 seconds",
+        //     {
+        //       fontSize: this.game.config.height * 0.015,
+        //       fontFamily: "Montblant",
+        //       color: "#000",
+        //       align: "center",
+        //     }
+        //   )
+        //   .setOrigin(0.5)
+        //   .setAlpha(1);
+
         // set text
         this.countDownText = this.add
           .text(
             this.game.config.width * 0.09,
             this.game.config.height * 0.09,
-            "100",
+            "120",
             {
               fontSize: this.game.config.height * 0.05,
               fontFamily: "Montblant-bold",
@@ -210,7 +225,7 @@ export class Game extends Phaser.Scene {
           .text(
             this.game.config.width * 0.5,
             this.game.config.height * 0.215,
-            "EXPLORES THE INSPIRATIONAL POWER OF LIBRARIES\n AROUND THE WORLD AS SOURCES OF KNOWLEDGE, \nINSPIRATION AND DISCOVERY, BRINGING MONTBLANC \nBACK TO ITS ROOTS IN WRITING CULTURE",
+            "MONTBLANC INVITES YOU TO EXPLORE THE POWER \n OF LIBRARIES THROUGH THE LENS OF LITERARY, \nDESTINATIONS WITH A GAME OF WORD SEARCH.",
             {
               fontSize: this.game.config.height * 0.0175,
               fontFamily: "Montblant",
@@ -308,7 +323,6 @@ export class Game extends Phaser.Scene {
 
     this.icon.on("pointerup", () => {
       fx.color = 0xbff1f5;
-      this.clue.setAlpha(0);
       this.live -= 1;
     });
 
@@ -364,6 +378,9 @@ export class Game extends Phaser.Scene {
         this.indicatorText,
         this.clue,
         this.icon,
+        this.clueText,
+        this.pointsys,
+        this.b_logo,
       ],
       alpha: 0,
       duration: 700,
@@ -395,6 +412,9 @@ export class Game extends Phaser.Scene {
         this.indicatorText.alpha = 0;
         this.clue.alpha = 0;
         this.icon.alpha = 0;
+        this.clueText.alpha = 0;
+        this.pointsys.alpha = 0;
+        this.b_logo.alpha = 0;
 
         for (let tiles of this.tileGrid) {
           for (let tile of tiles) {
@@ -454,6 +474,7 @@ export class Game extends Phaser.Scene {
       this.icon.setAlpha(1);
       this.clueText.setAlpha(1);
       this.pointsys.setAlpha(1);
+      this.b_logo.setAlpha(1);
 
       for (let tiles of this.tileGrid) {
         for (let tile of tiles) {
@@ -477,6 +498,19 @@ export class Game extends Phaser.Scene {
       (this.game.config.height * 0.62 * 16) / 11,
       (this.game.config.height * 0.62 * 16) / 11
     );
+
+    this.b_logo = this.add
+      .image(
+        this.book.x,
+        this.book.y + (this.game.config.height * 0.62 * 16 * 0.3) / 11,
+        "b_logo"
+      )
+      .setDepth(10)
+      .setDisplaySize(
+        this.game.config.width * 0.15,
+        (this.game.config.width * 0.15 * 27) / 200
+      )
+      .setAlpha(0);
 
     // this.book.setInteractive();
     // this.book.on("pointerdown", () => {
@@ -633,6 +667,12 @@ export class Game extends Phaser.Scene {
               this.point += 2;
             });
           }
+
+          this.tweens.add({
+            targets: this.clue,
+            alpha: 0,
+            duration: 1000,
+          });
 
           this.playHistory.push({
             point: this.point,
