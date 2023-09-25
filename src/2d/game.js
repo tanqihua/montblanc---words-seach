@@ -10,6 +10,7 @@ export class Game extends Phaser.Scene {
     this.startGame = false;
     this.point = 0;
     this.playHistory = [];
+    this.live = 3;
   }
 
   preload() {}
@@ -236,6 +237,35 @@ export class Game extends Phaser.Scene {
       )
       .setAlpha(0);
 
+    this.clueText = this.add
+      .image(
+        this.icon.x + this.game.config.height * 0.1 * 1.4,
+        this.icon.y - this.game.config.height * 0.1 * 0.2,
+        "clueText"
+      )
+      .setOrigin(0.5)
+      .setDepth(10)
+      .setAlpha(0);
+
+    this.clueText.setDisplaySize(
+      (this.game.config.height * 0.06 * 200) / 80,
+      this.game.config.height * 0.06
+    );
+    this.pointsys = this.add
+      .sprite(
+        this.clueText.x,
+        this.clueText.y + this.game.config.height * 0.06 * 0.8,
+        "pointsys"
+      )
+      .setOrigin(0.5)
+      .setDepth(10)
+      .setAlpha(0);
+
+    this.pointsys.setDisplaySize(
+      (this.game.config.height * 0.03 * 167) / 51,
+      this.game.config.height * 0.03
+    );
+
     this.icon.setInteractive();
 
     this.icon.preFX.setPadding(15);
@@ -252,15 +282,34 @@ export class Game extends Phaser.Scene {
     this.icon.on("pointerdown", () => {
       if (this.icon.alpha === 1) {
         this.clue.setAlpha(1);
-        this.clue.setText(this.getClue());
-        // set fx color
-        fx.color = 0xf39c98;
+
+        if (this.live > 0) {
+          this.clue.setText(this.getClue());
+          fx.color = 0xf39c98;
+          this.clueText.setAlpha(1);
+          this.pointsys.setAlpha(1);
+
+          switch (this.live) {
+            case 3:
+              this.pointsys.anims.play("2point");
+              break;
+            case 2:
+              this.pointsys.anims.play("1point");
+              break;
+            case 1:
+              this.pointsys.anims.play("0point");
+              // to gray color
+              this.icon.setTint(0x808080);
+              break;
+          }
+        }
       }
     });
 
     this.icon.on("pointerup", () => {
       fx.color = 0xbff1f5;
       this.clue.setAlpha(0);
+      this.live -= 1;
     });
 
     // store sellected tile
@@ -403,6 +452,8 @@ export class Game extends Phaser.Scene {
       this._countDownText.setAlpha(1);
       this.indicatorText.setAlpha(1);
       this.icon.setAlpha(1);
+      this.clueText.setAlpha(1);
+      this.pointsys.setAlpha(1);
 
       for (let tiles of this.tileGrid) {
         for (let tile of tiles) {

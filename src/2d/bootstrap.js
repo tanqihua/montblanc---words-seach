@@ -78,13 +78,22 @@ export class Bootstrap extends Phaser.Scene {
     this.load.image("mblogo", "/2d/MB_logo.png");
 
     // load icon
-    this.load.image("icon", "/2d/icon.png");
+    this.load.image("icon", "/2d/icon_300.png");
 
     // load text
     this.load.image("text", "/2d/text.png");
 
     // load bg
     this.load.image("bg", "/2d/BG.jpg");
+
+    // load clueText
+    this.load.image("clueText", "/2d/clueText.png");
+
+    // load sprite sheet
+    this.load.spritesheet("pointsys", "/2d/point.png", {
+      frameWidth: 167,
+      frameHeight: 51,
+    });
 
     this.load.on("progress", (value) => {
       // color 0x00ff00
@@ -99,6 +108,30 @@ export class Bootstrap extends Phaser.Scene {
       frames: ArrayFrame(0, 99, false),
       frameRate: 30,
       repeat: 0,
+    });
+
+    this.anims.create({
+      key: "3point",
+      frames: this.anims.generateFrameNumbers("pointsys", { start: 0, end: 0 }),
+      frameRate: 1,
+    });
+
+    this.anims.create({
+      key: "2point",
+      frames: this.anims.generateFrameNumbers("pointsys", { start: 2, end: 2 }),
+      frameRate: 1,
+    });
+
+    this.anims.create({
+      key: "1point",
+      frames: this.anims.generateFrameNumbers("pointsys", { start: 1, end: 1 }),
+      frameRate: 1,
+    });
+
+    this.anims.create({
+      key: "0point",
+      frames: this.anims.generateFrameNumbers("pointsys", { start: 3, end: 3 }),
+      frameRate: 1,
     });
 
     window.setPreload();

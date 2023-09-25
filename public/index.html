@@ -23,6 +23,40 @@
     />
     <meta content="#bcbbff" data-react-helmet="true" name="theme-color" />
 
+    <!-- Content-Security-Policy -->
+    <!-- <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' 
+      http://localhost:3000/static/js/bundle.js
+      img-src 'self' data:;
+      object-src 'self' blob:
+      "
+    /> -->
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCCmddK8-qe6fiyAGPctg3ipLegU3Gp_4A",
+        authDomain: "superfans-83ecb.firebaseapp.com",
+        projectId: "superfans-83ecb",
+        storageBucket: "superfans-83ecb.appspot.com",
+        messagingSenderId: "901884946996",
+        appId: "1:901884946996:web:72a9947da79433fab7b861",
+        measurementId: "G-GDGGX66YD1",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+
     <style media="screen" type="text/css">
       @font-face {
         font-family: "Montblant";
