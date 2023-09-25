@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import Form from "./form";
 import Submit from "./submit";
+
+import useFirebase from "../store/firebase";
+
 export const Index = React.forwardRef((props, ref) => {
   const { gameRef } = props;
   const [startGame, setStartGame] = React.useState(false);
   const [formTrigger, setFormTrigger] = React.useState(false);
   const [submitTrigger, setSubmitTrigger] = React.useState(false);
 
+  const firebase = useFirebase((state) => state.firebase);
   useEffect(() => {
     window.setFormTrigger = () => {
       setFormTrigger(true);
@@ -26,16 +30,20 @@ export const Index = React.forwardRef((props, ref) => {
         startGame={startGame}
         setStartGame={setStartGame}
         gameRef={gameRef}
+        trackBtn={firebase.trackBtn}
       />
       <Submit
         setSubmitTrigger={setSubmitTrigger}
         submitTrigger={submitTrigger}
+        trackBtn={firebase.trackBtn}
       />
       <Form
         setFormTrigger={setFormTrigger}
         formTrigger={formTrigger}
         gameRef={gameRef}
         setSubmitTrigger={setSubmitTrigger}
+        trackBtn={firebase.trackBtn}
+        submit={firebase.submit}
       />
       <Preloading />
 
@@ -44,7 +52,13 @@ export const Index = React.forwardRef((props, ref) => {
   );
 });
 
-function Button({ param = "SUBMIT", startGame, setStartGame, gameRef }) {
+function Button({
+  param = "SUBMIT",
+  startGame,
+  setStartGame,
+  gameRef,
+  trackBtn,
+}) {
   return (
     <div
       style={{
@@ -72,6 +86,7 @@ function Button({ param = "SUBMIT", startGame, setStartGame, gameRef }) {
         onClick={() => {
           setStartGame(true);
           gameRef.current?.scene?.scenes[1].startMainGame();
+          trackBtn("startBTN");
         }}
       >
         {param}

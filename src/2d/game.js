@@ -9,9 +9,14 @@ export class Game extends Phaser.Scene {
     this.currentTime = new Date().getTime();
     this.startGame = false;
     this.point = 0;
+    this.playHistory = [];
   }
 
   preload() {}
+
+  getPlayHistory() {
+    return this.playHistory;
+  }
 
   create() {
     this.mainWidth = (this.game.config.height * 0.65 * 11) / 16;
@@ -275,6 +280,14 @@ export class Game extends Phaser.Scene {
         this.point -= 2;
       });
     }
+
+    this.playHistory.push({
+      clue: clud,
+      point: this.point,
+      time: new Date().getTime(),
+    });
+
+    console.log(this.playHistory);
 
     return clud;
   }
@@ -569,6 +582,11 @@ export class Game extends Phaser.Scene {
               this.point += 2;
             });
           }
+
+          this.playHistory.push({
+            point: this.point,
+            time: new Date().getTime(),
+          });
 
           // play sound
           this.sound.play("heightlight");

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function Submit({ submitTrigger }) {
+function Submit({ submitTrigger, trackBtn }) {
   return (
     <div
       style={{
@@ -67,6 +67,7 @@ function Submit({ submitTrigger }) {
           }}
           onClick={() => {
             // refresh page
+            trackBtn("playAgainBTN");
             window.location.reload();
           }}
         >

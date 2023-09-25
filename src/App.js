@@ -8,8 +8,6 @@ function App() {
   const firebase = useFirebase((state) => state.firebase);
 
   void useEffect(() => {
-    console.log(phaserGame.current.scene.scenes[1]);
-
     return () => {
       firebase.init();
     };

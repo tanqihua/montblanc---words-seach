@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 
-function Form({ setFormTrigger, formTrigger, gameRef, setSubmitTrigger }) {
+function Form({
+  setFormTrigger,
+  formTrigger,
+  gameRef,
+  setSubmitTrigger,
+  trackBtn,
+  submit,
+}) {
   const [info, setInfo] = React.useState({
     gental: null,
     terms: false,
@@ -12,6 +19,9 @@ function Form({ setFormTrigger, formTrigger, gameRef, setSubmitTrigger }) {
     email: null,
     mobile: null,
     submit: false,
+    countryCode: null,
+    score: gameRef.current?.scene?.scenes[1].point ?? 0,
+    playHistory: 0,
   });
 
   return (
@@ -52,8 +62,10 @@ function Form({ setFormTrigger, formTrigger, gameRef, setSubmitTrigger }) {
           <img src="/2d/MB_logo.png" />
         </div>
 
+        <div className="block" style={{ height: "2.5svh" }} />
+
         <h2>YOUR SCORE</h2>
-        <h1>{gameRef.current?.scene?.scenes[1].point}</h1>
+        <h1>{gameRef.current?.scene?.scenes[1].point ?? 0}</h1>
         <p>
           Submit your score to be in the running to win a <br />
           Montblanc xxx.
@@ -124,12 +136,49 @@ function Form({ setFormTrigger, formTrigger, gameRef, setSubmitTrigger }) {
             />
           </div>
           <Input placeholder="Email" info={info} setInfo={setInfo} />
-          <Input
-            placeholder="Mobile"
-            info={info}
-            setInfo={setInfo}
-            type={"number"}
-          />
+
+          <div
+            style={{
+              display: "flex",
+              width: "90%",
+              justifyContent: "space-between",
+            }}
+          >
+            <select
+              name="+65"
+              style={{
+                width: "22.5%",
+                textAlign: "center",
+                color: "black",
+                border: "none",
+                borderRadius: "0",
+                backgroundColor: "hsl(0deg 0% 85.1%)",
+                margin: "0.5rem 0",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onChange={(e) => {
+                setInfo({
+                  ...info,
+                  countryCode: e.target.value,
+                });
+              }}
+            >
+              <option value="+65" selected>
+                +65
+              </option>
+              <option value="+60">+60</option>
+            </select>
+
+            <Input
+              placeholder="Mobile"
+              info={info}
+              setInfo={setInfo}
+              type={"number"}
+              size="75%"
+            />
+          </div>
         </section>
 
         <div className="block" style={{ height: "3svh" }} />
@@ -137,16 +186,32 @@ function Form({ setFormTrigger, formTrigger, gameRef, setSubmitTrigger }) {
         <Terms setInfo={setInfo} info={info} />
 
         <div
-          onClick={() => {
-            setSubmitTrigger(true);
-            setFormTrigger(false);
-          }}
           style={{
             width: "fit-content",
             margin: "auto",
           }}
         >
-          <Button param="SUBMIT" setInfo={setInfo} info={info} />
+          <Button
+            param="SUBMIT"
+            setInfo={setInfo}
+            info={info}
+            onClick={() => {
+              if (setInfo) {
+                setInfo({
+                  ...info,
+                  submit: true,
+                });
+
+                let _info = info;
+                _info.playHistory =
+                  gameRef.current?.scene?.scenes[1].getPlayHistory();
+                trackBtn("submit");
+                submit(_info);
+                setSubmitTrigger(true);
+                setFormTrigger(false);
+              }
+            }}
+          />
         </div>
         <div />
         <div
@@ -159,7 +224,14 @@ function Form({ setFormTrigger, formTrigger, gameRef, setSubmitTrigger }) {
             window.location.reload();
           }}
         >
-          <Button param="PLAY AGAIN" />
+          <Button
+            param="PLAY AGAIN"
+            onClick={() => {
+              trackBtn("PlayAgain-formpage");
+              // refresh page
+              window.location.reload();
+            }}
+          />
         </div>
       </div>
 
@@ -210,13 +282,21 @@ function Terms({ info = null, setInfo }) {
       </div>
 
       <div>
-        <p>
+        <p
+          style={{
+            fontFamily: "Montblant",
+          }}
+        >
           By submitting this form, you agree that Montblanc may contact you
           using one of the communication channels you have provided to send you
           information about Montblanc's products and services, promotions and
           other activities that may be of interest to you.
         </p>
-        <p>
+        <p
+          style={{
+            fontFamily: "Montblant",
+          }}
+        >
           For further details on how we manage your data, please see our
           <span style={{ textDecoration: "underline" }}> Privacy Policy</span>.
         </p>
@@ -250,6 +330,7 @@ function Input({
         width: size,
         padding: "0.7rem",
         margin: "0.5rem 0",
+        borderRadius: "0",
       }}
     />
   );
@@ -292,7 +373,7 @@ function SellecBTN({ param = "MR.", info = null, setInfo }) {
   );
 }
 
-function Button({ param = "SUBMIT", info, setInfo }) {
+function Button({ param = "SUBMIT", info, setInfo, onClick }) {
   return (
     <div
       style={{
@@ -311,12 +392,7 @@ function Button({ param = "SUBMIT", info, setInfo }) {
           width: "35vw",
         }}
         onClick={() => {
-          if (setInfo) {
-            setInfo({
-              ...info,
-              submit: true,
-            });
-          }
+          onClick();
         }}
       >
         {param}
