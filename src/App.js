@@ -6,13 +6,6 @@ import { DesktopBlock } from "./overlay/desktopblock";
 // function setdoc
 function App() {
   const phaserGame = React.useRef(null);
-  const firebase = useFirebase((state) => state.firebase);
-
-  useEffect(() => {
-    return () => {
-      firebase.init();
-    };
-  }, []);
 
   return (
     <div className="App">

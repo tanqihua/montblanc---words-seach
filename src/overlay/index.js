@@ -20,6 +20,10 @@ export const Index = React.forwardRef((props, ref) => {
         playHistory: gameRef.current?.scene?.scenes[1].getPlayHistory() ?? [],
       });
     };
+
+    return () => {
+      firebase.init();
+    };
   }, []);
 
   return (
