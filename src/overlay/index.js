@@ -20,8 +20,11 @@ export const Index = React.forwardRef((props, ref) => {
         playHistory: gameRef.current?.scene?.scenes[1].getPlayHistory() ?? [],
       });
     };
+  }, []);
 
-    return () => {
+  useEffect(() => {
+    window.onload = () => {
+      console.log("window loaded");
       firebase.init();
     };
   }, []);
