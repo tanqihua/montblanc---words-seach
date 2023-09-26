@@ -14,7 +14,7 @@ const firebaseConfig = {
 };
 
 let collection = "montblanc-sg-wordsseach";
-let superfan = "superfan";
+let superfan = "superfan-montblanc-sg-wordsseach";
 
 // Initialize Firebase
 
