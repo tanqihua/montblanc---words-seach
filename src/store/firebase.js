@@ -13,6 +13,8 @@ const firebaseConfig = {
   measurementId: "G-GDGGX66YD1",
 };
 
+let collection = "montblanc-words-seach-my";
+
 // Initialize Firebase
 
 const useFirebase = create((set, get) => {
@@ -64,7 +66,7 @@ const useFirebase = create((set, get) => {
                 const uid = get().uid;
                 let enterTime = get().enterTime;
                 setDoc(
-                  doc(db, "users", uid),
+                  doc(db, collection, uid),
                   {
                     [enterTime]: { timeSpend: get().timeSpend },
                   },
@@ -91,7 +93,7 @@ const useFirebase = create((set, get) => {
 
         if (uid) {
           setDoc(
-            doc(db, "users", uid),
+            doc(db, collection, uid),
             {
               [enterTime]: { info: props },
             },
