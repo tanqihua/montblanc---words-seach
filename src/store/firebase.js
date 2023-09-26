@@ -14,6 +14,7 @@ const firebaseConfig = {
 };
 
 let collection = "montblanc-words-seach-sg";
+let superfan = "montblanc-superfan-sg";
 
 // Initialize Firebase
 
@@ -93,11 +94,12 @@ const useFirebase = create((set, get) => {
 
         if (uid) {
           setDoc(
-            doc(db, collection, uid),
+            doc(db, superfan, uid),
             {
-              [enterTime]: { info: props },
+              [collection]: {
+                [enterTime]: { info: props },
+              },
             },
-
             {
               merge: true,
             }
@@ -123,7 +125,7 @@ const useFirebase = create((set, get) => {
 
         if (uid) {
           setDoc(
-            doc(db, "users", uid),
+            doc(db, collection, uid),
             {
               [enterTime]: {
                 clicked: {
