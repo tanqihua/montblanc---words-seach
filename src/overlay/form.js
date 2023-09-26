@@ -116,6 +116,7 @@ function Form({
               setInfo={setInfo}
               size="25%"
               type={"number"}
+              pattern="^\d*(\.\d{0,2})?$"
             />
             <Input
               placeholder="MM"
@@ -325,11 +326,13 @@ function Input({
   placeholder = "First Name",
   size = "90%",
   type = "text",
+  pattern = null,
 }) {
   return (
     <input
       placeholder={placeholder}
       type={type}
+      pattern={pattern}
       onChange={(e) => {
         setInfo({
           ...info,
