@@ -31,22 +31,17 @@ const useFirebase = create((set, get) => {
     firebase: {
       init() {
         // check if uid is in localstorage
-        localStorage.getItem("uid") &&
-          set({ uid: localStorage.getItem("uid") });
-
-        if (!localStorage.getItem("uid")) {
-          const auth = getAuth();
-          signInAnonymously(auth)
-            .then((userCredential) => {
-              // Signed in..
-              const user = userCredential.user;
-              set({ uid: user.uid });
-              localStorage.setItem("uid", user.uid);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
+        const auth = getAuth();
+        signInAnonymously(auth)
+          .then((userCredential) => {
+            // Signed in..
+            const user = userCredential.user;
+            set({ uid: user.uid });
+            localStorage.setItem("uid", user.uid);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
         // main loop
         let current = new Date().getTime();
