@@ -4,17 +4,17 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { getAuth, signInAnonymously } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCCmddK8-qe6fiyAGPctg3ipLegU3Gp_4A",
-  authDomain: "superfans-83ecb.firebaseapp.com",
-  projectId: "superfans-83ecb",
-  storageBucket: "superfans-83ecb.appspot.com",
-  messagingSenderId: "901884946996",
-  appId: "1:901884946996:web:72a9947da79433fab7b861",
-  measurementId: "G-GDGGX66YD1",
+  apiKey: "AIzaSyCvOLqEkE3S0K6NKMW6vIO5MjVdxJ4k0Zw",
+  authDomain: "superfan-3a794.firebaseapp.com",
+  projectId: "superfan-3a794",
+  storageBucket: "superfan-3a794.appspot.com",
+  messagingSenderId: "18328979437",
+  appId: "1:18328979437:web:b6fb5190d1b2ba9445c9e4",
+  measurementId: "G-9MNC1K6CRJ",
 };
 
-let collection = "montblanc-words-seach-sg";
-let superfan = "montblanc-superfan-sg";
+let collection = "montblanc-sg-wordsseach";
+let superfan = "superfan";
 
 // Initialize Firebase
 
@@ -85,6 +85,28 @@ const useFirebase = create((set, get) => {
         };
 
         countDown();
+      },
+
+      playRecord(props) {
+        const db = get().db;
+        const uid = get().uid;
+        let enterTime = get().enterTime;
+        console.log(props);
+        if (uid) {
+          setDoc(
+            doc(db, collection, uid),
+            {
+              [enterTime]: {
+                playRecord: props,
+              },
+            },
+            {
+              merge: true,
+            }
+          ).then((e) => {
+            console.log(e);
+          });
+        }
       },
 
       submit(props) {

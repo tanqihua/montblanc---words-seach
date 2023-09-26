@@ -11,9 +11,14 @@ export const Index = React.forwardRef((props, ref) => {
   const [submitTrigger, setSubmitTrigger] = React.useState(false);
 
   const firebase = useFirebase((state) => state.firebase);
+
   useEffect(() => {
     window.setFormTrigger = () => {
       setFormTrigger(true);
+      firebase.playRecord({
+        score: gameRef.current?.scene?.scenes[1].point ?? 0,
+        playHistory: gameRef.current?.scene?.scenes[1].getPlayHistory() ?? [],
+      });
     };
   }, []);
 
