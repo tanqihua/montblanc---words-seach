@@ -176,6 +176,7 @@ function Form({
               info={info}
               setInfo={setInfo}
               type={"number"}
+              maxLength={11}
               size="75%"
             />
           </div>
@@ -204,10 +205,11 @@ function Form({
                 });
 
                 let acc = 0;
+                let isTerm = false;
                 Object.keys(info).forEach((key) => {
-                  if (info[key] === null) {
+                  if (info[key] === null || info[key] === false) {
                     acc++;
-                    console.log(key);
+                    if (key === "terms") isTerm = true;
                   }
                 });
 
@@ -221,7 +223,11 @@ function Form({
                   setSubmitTrigger(true);
                   setFormTrigger(false);
                 } else {
-                  alert("Please fill in all the fields.");
+                  if (isTerm) {
+                    alert("Please check box for Terms & Conditions.");
+                  } else {
+                    alert("Please fill in all the fields.");
+                  }
                 }
               }
             }}
@@ -265,14 +271,15 @@ function Terms({ info = null, setInfo }) {
         display: "flex",
       }}
       className="terms"
-      onClick={() => {
-        setInfo({
-          ...info,
-          terms: !info.terms,
-        });
-      }}
     >
-      <div>
+      <div
+        onClick={() => {
+          setInfo({
+            ...info,
+            terms: !info.terms,
+          });
+        }}
+      >
         <button
           id="terms"
           style={{
@@ -308,15 +315,20 @@ function Terms({ info = null, setInfo }) {
           By submitting this form, you agree that Montblanc may contact you
           using one of the communication channels you have provided to send you
           information about Montblanc's products and services, promotions and
-          other activities that may be of interest to you.
-        </p>
-        <p
-          style={{
-            fontFamily: "Montblant",
-          }}
-        >
-          For further details on how we manage your data, please see our
-          <span style={{ textDecoration: "underline" }}> Privacy Policy</span>.
+          other activities that may be of interest to you. For further details
+          on how we manage your data, please see our
+          <span
+            style={{ textDecoration: "underline" }}
+            onClick={() => {
+              window.open(
+                "https://www.montblanc.com/en-sg/terms-and-legal/privacy-policy"
+              );
+            }}
+          >
+            {" "}
+            Privacy Policy
+          </span>
+          .
         </p>
       </div>
     </section>
