@@ -45,7 +45,9 @@ const useFirebase = create((set, get) => {
               set({ uid: user.uid });
               localStorage.setItem("uid", user.uid);
             })
-            .catch((error) => {});
+            .catch((error) => {
+              console.log(error);
+            });
         }
 
         // main loop
