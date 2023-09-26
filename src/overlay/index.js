@@ -24,7 +24,6 @@ export const Index = React.forwardRef((props, ref) => {
 
   useEffect(() => {
     window.onload = () => {
-      console.log("window loaded");
       firebase.init();
     };
   }, []);
