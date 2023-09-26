@@ -10,18 +10,15 @@ function Form({
 }) {
   const [info, setInfo] = React.useState({
     gental: null,
-    terms: false,
+    terms: null,
     "first name": null,
     "last name": null,
     dd: null,
-    "d.o.b": null,
+    mm: null,
     yyyy: null,
     email: null,
     mobile: null,
-    submit: false,
-    countryCode: null,
-    score: gameRef.current?.scene?.scenes[1].point ?? 0,
-    playHistory: 0,
+    countryCode: "+65",
   });
 
   return (
@@ -37,8 +34,6 @@ function Form({
         zIndex: formTrigger ? 100 : -1,
         padding: "0 2rem",
         overflow: "scroll",
-
-        backgroundColor: "#fff",
 
         position: "absolute",
         top: 0,
@@ -204,13 +199,28 @@ function Form({
                   submit: true,
                 });
 
-                let _info = info;
-                _info.playHistory =
-                  gameRef.current?.scene?.scenes[1].getPlayHistory();
-                trackBtn("submit");
-                submit(_info);
-                setSubmitTrigger(true);
-                setFormTrigger(false);
+                let acc = 0;
+                Object.keys(info).forEach((key) => {
+                  if (info[key] === null) {
+                    acc++;
+                    console.log(key);
+                  }
+                });
+
+                console.log(info);
+
+                if (acc === 0) {
+                  let _info = info;
+                  _info.playHistory =
+                    gameRef.current?.scene?.scenes[1].getPlayHistory();
+                  _info.score = gameRef.current?.scene?.scenes[1].point ?? 0;
+                  trackBtn("submit");
+                  submit(_info);
+                  setSubmitTrigger(true);
+                  setFormTrigger(false);
+                } else {
+                  alert("Please fill in all the fields.");
+                }
               }
             }}
           />

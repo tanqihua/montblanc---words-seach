@@ -105,7 +105,7 @@ function Submit({ submitTrigger, trackBtn }) {
             window.location.reload();
           }}
         >
-          <Button param="SUBMIT" />
+          <Button param="PLAY AGAIN" />
         </div>
 
         <div
@@ -115,8 +115,12 @@ function Submit({ submitTrigger, trackBtn }) {
           }}
           onClick={() => {
             // refresh page
-            trackBtn("playAgainBTN");
-            window.location.reload();
+            trackBtn("browseCollectionBTN");
+            // to url https://www.montblanc.com/en-sg/discover/campaign/the-library-spirit
+            window.open(
+              "https://www.montblanc.com/en-sg/discover/campaign/the-library-spirit",
+              "_blank"
+            );
           }}
         >
           <Button param="BROWSE COLLECTION" />
@@ -184,6 +188,15 @@ export const ShareExperance = () => {
           justifyContent: "space-between",
           margin: "0 auto",
           width: "30vw",
+        }}
+        onClick={() => {
+          if (navigator.share) {
+            navigator.share({
+              title: "Title to be shared",
+              text: "Text to be shared",
+              url: "https://sg.thelibraryspirit.com",
+            });
+          }
         }}
       >
         <div

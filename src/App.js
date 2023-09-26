@@ -15,8 +15,14 @@ function App() {
 
   return (
     <div className="App">
-      <IoPhaser ref={phaserGame} />
-      <Overlay gameRef={phaserGame} />
+      {window.innerWidth > 721 ? (
+        <></>
+      ) : (
+        <>
+          <IoPhaser ref={phaserGame} />
+          <Overlay gameRef={phaserGame} />
+        </>
+      )}
     </div>
   );
 }
