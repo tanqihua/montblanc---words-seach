@@ -40,7 +40,7 @@ export const DesktopBlock = () => {
         }}
       >
         THIS EXPERIENCE IS ONLY AVAILABLE ON MOBILE <br />
-        PLEASE SCAN THE QR CODE BELOW TO ACESS
+        PLEASE SCAN THE QR CODE BELOW TO ACCESS
       </h2>
 
       <div
@@ -66,7 +66,7 @@ export const DesktopBlock = () => {
           height: "3svh",
         }}
       />
-      <Button param={"LEARN MORE"} id="learnmore" />
+      <Button param={"BROWSE COLLECTION"} id="learnmore" />
       <LegerLine />
     </div>
   );
@@ -78,12 +78,19 @@ function Button({ param = "SUBMIT", info, setInfo }) {
       style={{
         display: "flex",
         justifyContent: "center",
-        margin: "1rem 0",
+        margin: "1rem auto",
+        width: "fit-content",
+      }}
+      onClick={() => {
+        window.open(
+          "https://www.montblanc.com/en-sg/discover/campaign/the-library-spirit",
+          "_blank"
+        );
       }}
     >
       <button
         style={{
-          backgroundColor: "#000",
+          backgroundColor: "#6b9397",
           color: "#fff",
           border: "none",
           margin: "auto",
