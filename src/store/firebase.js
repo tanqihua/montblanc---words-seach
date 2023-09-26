@@ -15,13 +15,14 @@ const firebaseConfig = {
 
 let collection = "montblanc-sg-wordsseach";
 let superfan = "superfan-montblanc-sg-wordsseach";
-
+let _app = initializeApp(firebaseConfig);
+let _db = getFirestore(_app);
 // Initialize Firebase
 
 const useFirebase = create((set, get) => {
   return {
-    app: null,
-    db: null,
+    app: _app,
+    db: _db,
     uid: null,
     timeSpend: 0,
     enterTime: new Date().getTime(),
@@ -29,9 +30,6 @@ const useFirebase = create((set, get) => {
 
     firebase: {
       init() {
-        set({ app: initializeApp(firebaseConfig) });
-        set({ db: getFirestore() });
-
         // check if uid is in localstorage
         localStorage.getItem("uid") &&
           set({ uid: localStorage.getItem("uid") });
