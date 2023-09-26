@@ -215,9 +215,7 @@ function Form({
 
                 if (acc === 0) {
                   let _info = info;
-                  _info.playHistory =
-                    gameRef.current?.scene?.scenes[1].getPlayHistory();
-                  _info.score = gameRef.current?.scene?.scenes[1].point ?? 0;
+                  _info.id = localStorage.getItem("uid");
                   trackBtn("submit");
                   submit(_info);
                   setSubmitTrigger(true);
