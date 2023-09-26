@@ -29,37 +29,38 @@ export const Index = React.forwardRef((props, ref) => {
   }, []);
 
   return (
-    <div
-      style={{
-        width: "100vw",
-        pointerEvents: formTrigger ? "all" : "none",
-        height: "100svh",
-      }}
-    >
-      <Button
-        param={"START"}
-        startGame={startGame}
-        setStartGame={setStartGame}
-        gameRef={gameRef}
-        trackBtn={firebase.trackBtn}
-      />
-      <Submit
-        setSubmitTrigger={setSubmitTrigger}
-        submitTrigger={submitTrigger}
-        trackBtn={firebase.trackBtn}
-      />
-      <Form
-        setFormTrigger={setFormTrigger}
-        formTrigger={formTrigger}
-        gameRef={gameRef}
-        setSubmitTrigger={setSubmitTrigger}
-        trackBtn={firebase.trackBtn}
-        submit={firebase.submit}
-      />
-      <Preloading />
-
+    <>
+      <div
+        style={{
+          width: "100vw",
+          pointerEvents: formTrigger ? "all" : "none",
+          height: "100svh",
+        }}
+      >
+        <Button
+          param={"START"}
+          startGame={startGame}
+          setStartGame={setStartGame}
+          gameRef={gameRef}
+          trackBtn={firebase.trackBtn}
+        />
+        <Submit
+          setSubmitTrigger={setSubmitTrigger}
+          submitTrigger={submitTrigger}
+          trackBtn={firebase.trackBtn}
+        />
+        <Form
+          setFormTrigger={setFormTrigger}
+          formTrigger={formTrigger}
+          gameRef={gameRef}
+          setSubmitTrigger={setSubmitTrigger}
+          trackBtn={firebase.trackBtn}
+          submit={firebase.submit}
+        />
+        <Preloading />
+      </div>
       <LegerLine />
-    </div>
+    </>
   );
 });
 
