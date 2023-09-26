@@ -225,7 +225,7 @@ export class Game extends Phaser.Scene {
           .text(
             this.game.config.width * 0.5,
             this.game.config.height * 0.215,
-            "MONTBLANC INVITES YOU TO EXPLORE THE POWER \n OF LIBRARIES THROUGH THE LENS OF LITERARY, \nDESTINATIONS WITH A GAME OF WORD SEARCH.",
+            "MONTBLANC INVITES YOU TO EXPLORE THE POWER \n OF LIBRARIES THROUGH THE LENS OF LITERARY \nDESTINATIONS WITH A GAME OF WORD SEARCH.",
             {
               fontSize: this.game.config.height * 0.0175,
               fontFamily: "Montblant",
