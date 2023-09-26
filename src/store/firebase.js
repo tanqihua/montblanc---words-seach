@@ -34,8 +34,10 @@ const useFirebase = create((set, get) => {
         localStorage.getItem("uid") &&
           set({ uid: localStorage.getItem("uid") });
 
+        console.log(!localStorage.getItem("uid"));
         if (!localStorage.getItem("uid")) {
           const auth = getAuth();
+          console.log(auth);
           signInAnonymously(auth)
             .then((userCredential) => {
               // Signed in..
