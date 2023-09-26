@@ -120,15 +120,9 @@ const useFirebase = create((set, get) => {
         let enterTime = get().enterTime;
 
         if (uid) {
-          setDoc(
-            doc(db, superfan, uid),
-            {
-              [enterTime]: { info: props },
-            },
-            {
-              merge: true,
-            }
-          ).then((e) => {
+          setDoc(doc(db, superfan, uid), props, {
+            merge: true,
+          }).then((e) => {
             console.log(e);
           });
         }
