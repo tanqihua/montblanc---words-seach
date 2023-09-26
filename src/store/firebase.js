@@ -74,6 +74,7 @@ const useFirebase = create((set, get) => {
                   doc(db, collection, uid),
                   {
                     [enterTime]: { timeSpend: get().timeSpend },
+                    id: uid,
                   },
                   {
                     merge: true,
@@ -122,9 +123,7 @@ const useFirebase = create((set, get) => {
           setDoc(
             doc(db, superfan, uid),
             {
-              [collection]: {
-                [enterTime]: { info: props },
-              },
+              [enterTime]: { info: props },
             },
             {
               merge: true,
