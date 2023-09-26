@@ -16,6 +16,7 @@ function Submit({ submitTrigger, trackBtn }) {
         position: "absolute",
         top: 0,
         left: 0,
+        className: "submit",
       }}
     >
       <div
@@ -56,6 +57,8 @@ function Submit({ submitTrigger, trackBtn }) {
           <h4
             style={{
               textTransform: "uppercase",
+              fontFamily: "Montblant",
+              fontWeight: "100",
             }}
           >
             THANKS FOR PLAYING <br /> We invite you to discover the new <br />
@@ -64,7 +67,12 @@ function Submit({ submitTrigger, trackBtn }) {
 
           <div className="block" style={{ height: "3svh" }} />
 
-          <h4>
+          <h4
+            style={{
+              fontFamily: "Montblant",
+              fontWeight: "100",
+            }}
+          >
             To receive your gift*, screenshot this <br />
             page and show this to the friendly staff <br />
             at Montblanc’s boutiques.
@@ -105,7 +113,7 @@ function Submit({ submitTrigger, trackBtn }) {
             window.location.reload();
           }}
         >
-          <Button param="PLAY AGAIN" />
+          <Button param="PLAY AGAIN" id={"playagain-2"} />
         </div>
 
         <div
@@ -123,7 +131,7 @@ function Submit({ submitTrigger, trackBtn }) {
             );
           }}
         >
-          <Button param="BROWSE COLLECTION" />
+          <Button param="BROWSE COLLECTION" id={"browsecollection"} />
         </div>
 
         <div className="block" style={{ height: "4svh" }} />
@@ -135,7 +143,7 @@ function Submit({ submitTrigger, trackBtn }) {
   );
 }
 
-function Button({ param = "SUBMIT", info, setInfo }) {
+function Button({ param = "SUBMIT", info, setInfo, id }) {
   return (
     <div
       style={{
@@ -145,6 +153,7 @@ function Button({ param = "SUBMIT", info, setInfo }) {
       }}
     >
       <button
+        id={id}
         style={{
           backgroundColor: "#6b9397",
           color: "#fff",

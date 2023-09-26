@@ -66,7 +66,7 @@ export const DesktopBlock = () => {
           height: "3svh",
         }}
       />
-      <Button param={"LEARN MORE"} />
+      <Button param={"LEARN MORE"} id="learnmore" />
       <LegerLine />
     </div>
   );

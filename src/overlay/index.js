@@ -83,6 +83,7 @@ function Button({
           padding: "0.8rem",
           width: "35vw",
         }}
+        id="startBTN"
         onClick={() => {
           setStartGame(true);
           gameRef.current?.scene?.scenes[1].startMainGame();

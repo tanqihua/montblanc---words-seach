@@ -116,6 +116,7 @@ function Form({
               setInfo={setInfo}
               size="25%"
               type={"number"}
+              maxLength={2}
             />
             <Input
               placeholder="MM"
@@ -123,6 +124,7 @@ function Form({
               setInfo={setInfo}
               size="25%"
               type={"number"}
+              maxLength={2}
             />
             <Input
               placeholder="YYYY"
@@ -130,6 +132,7 @@ function Form({
               setInfo={setInfo}
               size="35%"
               type={"number"}
+              maxLength={4}
             />
           </div>
           <Input placeholder="Email" info={info} setInfo={setInfo} />
@@ -190,6 +193,7 @@ function Form({
         >
           <Button
             param="SUBMIT"
+            id="submit"
             setInfo={setInfo}
             info={info}
             onClick={() => {
@@ -206,8 +210,6 @@ function Form({
                     console.log(key);
                   }
                 });
-
-                console.log(info);
 
                 if (acc === 0) {
                   let _info = info;
@@ -238,6 +240,7 @@ function Form({
         >
           <Button
             param="PLAY AGAIN"
+            id={"playagain"}
             onClick={() => {
               trackBtn("PlayAgain-formpage");
               // refresh page
@@ -271,6 +274,7 @@ function Terms({ info = null, setInfo }) {
     >
       <div>
         <button
+          id="terms"
           style={{
             width: "0.7rem",
             height: "0.7rem",
@@ -325,12 +329,18 @@ function Input({
   placeholder = "First Name",
   size = "90%",
   type = "text",
+  name = "num",
+  maxLength = 4,
 }) {
   return (
     <input
       placeholder={placeholder}
       type={type}
+      name={name}
       onChange={(e) => {
+        if (type === "number" && e.target.value.length > maxLength) {
+          e.target.value = e.target.value.slice(0, maxLength);
+        }
         setInfo({
           ...info,
           [placeholder.toLowerCase()]: e.target.value,
@@ -387,7 +397,7 @@ function SellecBTN({ param = "MR.", info = null, setInfo }) {
   );
 }
 
-function Button({ param = "SUBMIT", info, setInfo, onClick }) {
+function Button({ param = "SUBMIT", info, setInfo, onClick, id }) {
   return (
     <div
       style={{
@@ -405,6 +415,7 @@ function Button({ param = "SUBMIT", info, setInfo, onClick }) {
           padding: "0.8rem",
           width: "35vw",
         }}
+        id={id}
         onClick={() => {
           onClick();
         }}
