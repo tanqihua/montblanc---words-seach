@@ -11,6 +11,7 @@ export class Game extends Phaser.Scene {
     this.point = 0;
     this.playHistory = [];
     this.live = 3;
+    this.gameEnd = false;
   }
 
   preload() {}
@@ -357,82 +358,86 @@ export class Game extends Phaser.Scene {
 
   endGame() {
     // this.bookPlay = false;
-    this.book.removeInteractive();
-    for (let tiles of this.tileGrid) {
-      for (let tile of tiles) {
-        this.tweens.add({
-          targets: tile,
-          alpha: 0,
-          duration: 700,
-          delay: 500,
-        });
-      }
-    }
+    if (!this.endGame) {
+      this.gameEnd = true;
 
-    this.tweens.add({
-      targets: [
-        this.textPoint,
-        this._textPoint,
-        this.countDownText,
-        this._countDownText,
-        this.indicatorText,
-        this.clue,
-        this.icon,
-        this.clueText,
-        this.pointsys,
-        this.b_logo,
-      ],
-      alpha: 0,
-      duration: 700,
-      delay: 500,
-      onComplete: () => {
-        this.partGraphics2.clear();
-        this.pathGraphics.clear();
-      },
-    });
-
-    const { width } = this.logo;
-    const scale = (this.game.config.height * 0.1 * 2.77) / width;
-
-    this.tweens.add({
-      targets: this.logo,
-      scale: scale,
-      delay: 500,
-      duration: 2500,
-    });
-
-    this.time.delayedCall(800, () => {
-      this.sound.play("bookfipEnd");
-      this.book.anims.playReverse("flip").on("animationcomplete", () => {
-        this.bookPlay = false;
-        this.textPoint.alpha = 0;
-        this._textPoint.alpha = 0;
-        this.countDownText.alpha = 0;
-        this._countDownText.alpha = 0;
-        this.indicatorText.alpha = 0;
-        this.clue.alpha = 0;
-        this.icon.alpha = 0;
-        this.clueText.alpha = 0;
-        this.pointsys.alpha = 0;
-        this.b_logo.alpha = 0;
-
-        for (let tiles of this.tileGrid) {
-          for (let tile of tiles) {
-            tile.alpha = 0;
-          }
+      this.book.removeInteractive();
+      for (let tiles of this.tileGrid) {
+        for (let tile of tiles) {
+          this.tweens.add({
+            targets: tile,
+            alpha: 0,
+            duration: 700,
+            delay: 500,
+          });
         }
+      }
 
-        this.tweens.add({
-          targets: this.book,
-          alpha: 0,
-          duration: 700,
-          onComplete: () => {
-            this.logo.alpha = 0;
-            window.setFormTrigger();
-          },
+      this.tweens.add({
+        targets: [
+          this.textPoint,
+          this._textPoint,
+          this.countDownText,
+          this._countDownText,
+          this.indicatorText,
+          this.clue,
+          this.icon,
+          this.clueText,
+          this.pointsys,
+          this.b_logo,
+        ],
+        alpha: 0,
+        duration: 700,
+        delay: 500,
+        onComplete: () => {
+          this.partGraphics2.clear();
+          this.pathGraphics.clear();
+        },
+      });
+
+      const { width } = this.logo;
+      const scale = (this.game.config.height * 0.1 * 2.77) / width;
+
+      this.tweens.add({
+        targets: this.logo,
+        scale: scale,
+        delay: 500,
+        duration: 2500,
+      });
+
+      this.time.delayedCall(800, () => {
+        this.sound.play("bookfipEnd");
+        this.book.anims.playReverse("flip").on("animationcomplete", () => {
+          this.bookPlay = false;
+          this.textPoint.alpha = 0;
+          this._textPoint.alpha = 0;
+          this.countDownText.alpha = 0;
+          this._countDownText.alpha = 0;
+          this.indicatorText.alpha = 0;
+          this.clue.alpha = 0;
+          this.icon.alpha = 0;
+          this.clueText.alpha = 0;
+          this.pointsys.alpha = 0;
+          this.b_logo.alpha = 0;
+
+          for (let tiles of this.tileGrid) {
+            for (let tile of tiles) {
+              tile.alpha = 0;
+            }
+          }
+
+          this.tweens.add({
+            targets: this.book,
+            alpha: 0,
+            duration: 700,
+            onComplete: () => {
+              this.logo.alpha = 0;
+              window.setFormTrigger();
+            },
+          });
         });
       });
-    });
+    }
   }
   // BOOK
   startMainGame() {
