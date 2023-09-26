@@ -8,7 +8,7 @@ function App() {
   const phaserGame = React.useRef(null);
   const firebase = useFirebase((state) => state.firebase);
 
-  void useEffect(() => {
+  useEffect(() => {
     return () => {
       firebase.init();
     };
