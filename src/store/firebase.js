@@ -34,10 +34,8 @@ const useFirebase = create((set, get) => {
         localStorage.getItem("uid") &&
           set({ uid: localStorage.getItem("uid") });
 
-        console.log(!localStorage.getItem("uid"));
         if (!localStorage.getItem("uid")) {
           const auth = getAuth();
-          console.log(auth);
           signInAnonymously(auth)
             .then((userCredential) => {
               // Signed in..
@@ -53,8 +51,6 @@ const useFirebase = create((set, get) => {
         // main loop
         let current = new Date().getTime();
         let count20 = 20;
-
-        console.log(get().uid);
 
         const countDown = () => {
           // check if 1 second has passed

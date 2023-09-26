@@ -353,8 +353,6 @@ export class Game extends Phaser.Scene {
       time: new Date().getTime(),
     });
 
-    console.log(this.playHistory);
-
     return clud;
   }
 
