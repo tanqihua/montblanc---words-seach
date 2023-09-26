@@ -54,6 +54,8 @@ const useFirebase = create((set, get) => {
         let current = new Date().getTime();
         let count20 = 20;
 
+        console.log(get().uid);
+
         const countDown = () => {
           // check if 1 second has passed
 
