@@ -6,7 +6,6 @@ import { DesktopBlock } from "./overlay/desktopblock";
 // function setdoc
 function App() {
   const phaserGame = React.useRef(null);
-
   return (
     <div className="App">
       {window.innerWidth > 721 ? (

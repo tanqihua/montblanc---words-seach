@@ -30,9 +30,11 @@ const useFirebase = create((set, get) => {
 
     firebase: {
       init() {
+        console.log("init");
         // check if uid is in localstorage
-        const user = "A" + get().enterTime;
+        const user = "A" + new Date().getTime();
         set({ uid: user });
+        console.log(user);
         localStorage.setItem("uid", user);
 
         // main loop

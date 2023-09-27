@@ -4,7 +4,7 @@ import Submit from "./submit";
 
 import useFirebase from "../store/firebase";
 
-export const Index = React.forwardRef((props, ref) => {
+export const Index = (props, ref) => {
   const { gameRef } = props;
   const [startGame, setStartGame] = React.useState(false);
   const [formTrigger, setFormTrigger] = React.useState(false);
@@ -20,10 +20,9 @@ export const Index = React.forwardRef((props, ref) => {
         playHistory: gameRef.current?.scene?.scenes[1].getPlayHistory() ?? [],
       });
     };
-  }, []);
 
-  useEffect(() => {
     window.onload = () => {
+      console.log("loaded");
       firebase.init();
     };
   }, []);
@@ -62,7 +61,7 @@ export const Index = React.forwardRef((props, ref) => {
       <LegerLine />
     </>
   );
-});
+};
 
 function Button({
   param = "SUBMIT",
