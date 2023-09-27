@@ -201,8 +201,8 @@ export const ShareExperance = () => {
         onClick={() => {
           if (navigator.share) {
             navigator.share({
-              title: "Title to be shared",
-              text: "Text to be shared",
+              title: "Montblanc The Library Spirit Word Search",
+              text: "Montblanc invites you to explore the power of libraries through the lens of literary destinations with a game of word search.",
               url: "https://sg.thelibraryspirit.com",
             });
           }
