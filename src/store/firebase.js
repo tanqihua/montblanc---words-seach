@@ -13,8 +13,8 @@ const firebaseConfig = {
   measurementId: "G-9MNC1K6CRJ",
 };
 
-let collection = "montblanc-sg-wordsseach";
-let superfan = "superfan-montblanc-sg-wordsseach";
+let collection = "montblanc-my-wordsseach";
+let superfan = "superfan-montblanc-my-wordsseach";
 let _app = initializeApp(firebaseConfig);
 let _db = getFirestore(_app);
 // Initialize Firebase

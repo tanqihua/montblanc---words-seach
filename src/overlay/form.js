@@ -18,7 +18,7 @@ function Form({
     yyyy: null,
     email: null,
     mobile: null,
-    countryCode: "+65",
+    countryCode: "+60",
   });
 
   return (
@@ -145,7 +145,7 @@ function Form({
             }}
           >
             <select
-              name="+65"
+              name="+60"
               style={{
                 width: "22.5%",
                 textAlign: "center",
@@ -165,10 +165,10 @@ function Form({
                 });
               }}
             >
-              <option value="+65" selected>
-                +65
+              <option value="+60" selected>
+                +60{" "}
               </option>
-              <option value="+60">+60</option>
+              <option value="+65">+65</option>
             </select>
 
             <Input
