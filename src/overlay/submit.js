@@ -80,10 +80,9 @@ function Submit({ submitTrigger, trackBtn }) {
 
           <div className="block" style={{ height: "3svh" }} />
 
-          <h4>Ngee Ann City #01-34</h4>
-          <h4>Paragon #01-28</h4>
-          <h4>Marina Bay Sands #B2-64</h4>
-          <h4>Raffles City #01-29</h4>
+          <h4>Pavilion Kuala Lumpur – Lot 3.40 & 3.41</h4>
+          <h4>Suria KLCC – Lot 131-132A</h4>
+          <h4>The Gardens Mall – Lot G-236</h4>
         </div>
 
         <div className="block" style={{ height: "1svh" }} />
