@@ -125,7 +125,7 @@ function Submit({ submitTrigger, trackBtn }) {
             trackBtn("browseCollectionBTN");
             // to url https://www.montblanc.com/en-sg/discover/campaign/the-library-spirit
             window.open(
-              "https://www.montblanc.com/en-sg/discover/campaign/the-library-spirit",
+              "https://www.montblanc.com/en-my/discover/campaign/the-library-spirit",
               "_blank"
             );
           }}

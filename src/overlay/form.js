@@ -319,7 +319,7 @@ function Terms({ info = null, setInfo }) {
             style={{ textDecoration: "underline" }}
             onClick={() => {
               window.open(
-                "https://www.montblanc.com/en-sg/terms-and-legal/privacy-policy"
+                "https://www.montblanc.com/en-my/terms-and-legal/privacy-policy"
               );
             }}
           >
