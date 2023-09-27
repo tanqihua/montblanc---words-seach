@@ -31,17 +31,9 @@ const useFirebase = create((set, get) => {
     firebase: {
       init() {
         // check if uid is in localstorage
-        const auth = getAuth();
-        signInAnonymously(auth)
-          .then((userCredential) => {
-            // Signed in..
-            const user = userCredential.user;
-            set({ uid: user.uid });
-            localStorage.setItem("uid", user.uid);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        const user = "A" + get().enterTime;
+        set({ uid: user });
+        localStorage.setItem("uid", user);
 
         // main loop
         let current = new Date().getTime();
@@ -60,13 +52,9 @@ const useFirebase = create((set, get) => {
                 // set doc by uid
                 const db = get().db;
                 const uid = get().uid;
-                let enterTime = get().enterTime;
                 setDoc(
                   doc(db, collection, uid),
-                  {
-                    [enterTime]: { timeSpend: get().timeSpend },
-                    id: uid,
-                  },
+                  { timeSpend: get().timeSpend, id: uid },
                   {
                     merge: true,
                   }
@@ -86,15 +74,11 @@ const useFirebase = create((set, get) => {
       playRecord(props) {
         const db = get().db;
         const uid = get().uid;
-        let enterTime = get().enterTime;
-        console.log(props);
         if (uid) {
           setDoc(
             doc(db, collection, uid),
             {
-              [enterTime]: {
-                playRecord: props,
-              },
+              playRecord: props,
             },
             {
               merge: true,
@@ -108,7 +92,6 @@ const useFirebase = create((set, get) => {
       submit(props) {
         const db = get().db;
         const uid = get().uid;
-        let enterTime = get().enterTime;
 
         if (uid) {
           setDoc(doc(db, superfan, uid), props, {
@@ -122,7 +105,6 @@ const useFirebase = create((set, get) => {
       trackBtn(type) {
         const db = get().db;
         const uid = get().uid;
-        let enterTime = get().enterTime;
 
         let buttonHandler = get().buttonHandler;
 
@@ -134,22 +116,19 @@ const useFirebase = create((set, get) => {
         });
 
         if (uid) {
-          setDoc(
-            doc(db, collection, uid),
-            {
-              [enterTime]: {
-                clicked: {
-                  [type]: {
-                    time: new Date(),
-                    count: buttonHandler[type] ? buttonHandler[type] + 1 : 1,
-                  },
-                },
+          let data = {
+            clicked: {
+              [type]: {
+                time: new Date(),
+                count: buttonHandler[type] ? buttonHandler[type] + 1 : 1,
               },
             },
-            {
-              merge: true,
-            }
-          ).then((e) => {
+          };
+
+          console.log(data);
+          setDoc(doc(db, collection, uid), data, {
+            merge: true,
+          }).then((e) => {
             console.log(e);
           });
         }
