@@ -25,11 +25,35 @@
 
     <meta property="og:image" content="/2d/bgimg.jpg" />
 
-    <!-- Content-Security-Policy -->
-    <!-- <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' firestore.googleapis.com ; object-src 'none'; img-src 'self' data: blob:;"
-    /> -->
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-5MBQEW2CBJ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-5MBQEW2CBJ");
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-W7CQXQXB");
+    </script>
+    <!-- End Google Tag Manager -->
 
     <style media="screen" type="text/css">
       @font-face {
@@ -171,21 +195,6 @@
       }
     </style>
     <title>Montblanc The Library Spirit Word Search</title>
-
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-25CVKXFH3N"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-25CVKXFH3N");
-    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -203,7 +212,7 @@
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-5V9T6RZ7"
+        src="https://www.googletagmanager.com/ns.html?id=GTM-W7CQXQXB"
         height="0"
         width="0"
         style="display: none; visibility: hidden"
