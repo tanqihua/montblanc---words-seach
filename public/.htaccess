@@ -1,0 +1,14 @@
+<IfModule mod_headers.c>
+  Header set Content-Security-Policy "default-src * data: mediastream: blob:
+  filesystem: about: ws: wss: 'unsafe-eval' 'wasm-unsafe-eval' 'unsafe-inline':
+  https://firestore.googleapis.com; script-src * data: blob: 'unsafe-inline'
+  'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data:
+  blob: 'unsafe-inline'; frame-src * data: blob: ; style-src * data: blob:
+  'unsafe-inline'; font-src * data: blob: 'unsafe-inline'; frame-ancestors *
+  data: blob: 'unsafe-inline';" Header set Strict-Transport-Security
+  "max-age=31536000; includeSubDomains" Header set X-Xss-Protection "1;
+  mode=block" Header set X-Frame-Options "SAMEORIGIN" Header set
+  X-Content-Type-Options "nosniff" Header set Referrer-Policy
+  "strict-origin-when-cross-origin" Header set Permissions-Policy
+  "geolocation=self"
+</IfModule>
